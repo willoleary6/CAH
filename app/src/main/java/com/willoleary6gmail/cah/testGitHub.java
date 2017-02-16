@@ -5,5 +5,5 @@ package com.willoleary6gmail.cah;
  */
 
 public class testGitHub {
-    int i = 1;
+    int i = 0;
 }
