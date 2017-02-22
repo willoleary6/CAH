@@ -15,25 +15,26 @@
 
     <ImageButton
         android:layout_width="175dp"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
         app:srcCompat="@drawable/a"
         android:id="@+id/imageButton"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="175dp"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/b"
+        android:id="@+id/imageButton2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <ImageButton
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/c"
         android:id="@+id/imageButton3"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/imageButton2"
         android:layout_alignParentEnd="true" />
 
-    <ImageButton
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/b"
-        android:id="@+id/imageButton2"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

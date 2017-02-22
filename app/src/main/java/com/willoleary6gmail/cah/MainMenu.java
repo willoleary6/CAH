@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 
 public class MainMenu extends AppCompatActivity {
     MediaPlayer buttonClick;
     ImageButton FindAGame,HostAGame,Settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,7 @@ public class MainMenu extends AppCompatActivity {
         FindAGame = (ImageButton) findViewById(R.id.imageButton);
         HostAGame = (ImageButton) findViewById(R.id.imageButton2);
         Settings =  (ImageButton) findViewById(R.id.imageButton3);
+
         FindAGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +61,7 @@ public class MainMenu extends AppCompatActivity {
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-                        Intent toFindAGame = new Intent(MainMenu.this,Settings.class);
+                        Intent toFindAGame = new Intent(MainMenu.this,loginActivity.class);
                         startActivity(toFindAGame);
                     }
                 }, 500);
