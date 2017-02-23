@@ -52,21 +52,21 @@ public class RegisterActivity extends AppCompatActivity {
                                 Intent intent = new Intent(RegisterActivity.this,loginActivity.class);
                                 RegisterActivity.this.startActivity(intent);
                                 Toast.makeText(getApplicationContext(),
-                                        "Registration successful" ,
+                                        "Registration successful." ,
                                         Toast.LENGTH_LONG).show();
                                         Intent LoginIntent = new Intent(RegisterActivity.this,MainMenu.class);
                                         RegisterActivity.this.startActivity(LoginIntent);
                             }else if(!fromServer[2]){
                                 Toast.makeText(getApplicationContext(),
-                                        "Error: You must enter a password and username",
+                                        "Error: You must enter a password and username.",
                                         Toast.LENGTH_LONG).show();
                             }else if(!fromServer[0]){
                                 Toast.makeText(getApplicationContext(),
-                                        "Error: Unknown cause" ,
+                                        "Error: Unknown cause." ,
                                         Toast.LENGTH_LONG).show();
                             }else if(!fromServer[1]){
                                 Toast.makeText(getApplicationContext(),
-                                        "Error: Username unavailable",
+                                        "Error: Username unavailable.",
                                         Toast.LENGTH_LONG).show();
                             }
 
