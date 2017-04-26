@@ -18,13 +18,24 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="194dp"
         android:id="@+id/button" />
+
     <TextView
         android:text="Settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="89dp"
+        android:layout_marginTop="24dp"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Log out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logOutButton"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        tools:text="Log out" />
 
 </RelativeLayout>

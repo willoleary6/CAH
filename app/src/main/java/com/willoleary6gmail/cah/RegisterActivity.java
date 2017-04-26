@@ -16,9 +16,9 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/*Class that registers the user for the game*/
 public class RegisterActivity extends AppCompatActivity {
-
+    private static final String URL = "https://15155528serversite.000webhostapp.com/Registration/user_control.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String username = etUsername.getText().toString();
-                String password = etPassword.getText().toString();
+                final String password = etPassword.getText().toString();
                 buttonSound();
                 Response.Listener<String> responseListener = new Response.Listener<String>(){
 
@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             String updatedName = username;
+                            String updatedPwd = password;
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean [] fromServer = new boolean[3];
                             fromServer[0] = jsonResponse.getBoolean("success");
@@ -54,7 +55,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),
                                         "Registration successful." ,
                                         Toast.LENGTH_LONG).show();
-                                        Intent LoginIntent = new Intent(RegisterActivity.this,MainMenu.class);
+                                        Intent LoginIntent = new Intent(RegisterActivity.this,loginActivity.class);
+                                        loginActivity log = new loginActivity();
+                                        log.saveInfo(updatedName,updatedPwd);
                                         RegisterActivity.this.startActivity(LoginIntent);
                             }else if(!fromServer[2]){
                                 Toast.makeText(getApplicationContext(),
@@ -75,8 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 };
-
-                Server_Login_Register_Request registerRequest = new Server_Login_Register_Request(username,password,responseListener,"https://15155528serversite.000webhostapp.com/Registration/user_control.php");
+                /*Creates a hash map for volley and adds the */
+                Server_Login_Register_Request registerRequest = new Server_Login_Register_Request(username,password,responseListener,URL);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
             }

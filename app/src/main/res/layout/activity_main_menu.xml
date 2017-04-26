@@ -13,28 +13,40 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.willoleary6gmail.cah.MainMenu">
 
-    <ImageButton
-        android:layout_width="175dp"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/a"
-        android:id="@+id/imageButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageButton
-        android:layout_width="175dp"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/b"
-        android:id="@+id/imageButton2"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <ImageButton
-        android:layout_width="175dp"
+    <Button
+        android:text="Find a game"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/c"
-        android:id="@+id/imageButton3"
-        android:layout_alignTop="@+id/imageButton2"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:id="@+id/findGame" />
 
+    <Button
+        android:text="Host a game"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:id="@+id/hostGame"
+        android:layout_below="@+id/findGame"
+        android:layout_alignStart="@+id/findGame" />
+
+    <Button
+        android:text="Settings"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/settings"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/hostGame"
+        android:layout_alignStart="@+id/hostGame" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="33dp"
+        android:textSize="25sp"
+        android:id="@+id/userName"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/settings"
+        android:layout_alignEnd="@+id/settings"
+        android:layout_marginEnd="12dp" />
 </RelativeLayout>

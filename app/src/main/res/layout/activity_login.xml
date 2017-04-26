@@ -37,17 +37,6 @@
         android:layout_below="@+id/Username"
         android:layout_alignStart="@+id/Username" />
 
-    <Button
-        android:text="login"
-        android:layout_height="25dp"
-        android:theme="@style/Theme.App.Base"
-        android:background="@color/white"
-        android:layout_marginTop="71dp"
-        android:id="@+id/button2"
-        android:layout_width="200dp"
-        android:layout_below="@+id/Password"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:text="Register here"
         android:layout_width="wrap_content"
@@ -56,6 +45,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="26dp"
         android:id="@+id/tvRegisterHere" />
+
+    <Button
+        android:text="login"
+        android:layout_height="25dp"
+        android:theme="@style/Theme.App.Base"
+        android:background="@color/white"
+        android:layout_marginTop="28dp"
+        android:id="@+id/button2"
+        android:layout_width="200dp"
+        android:layout_below="@+id/Password"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
