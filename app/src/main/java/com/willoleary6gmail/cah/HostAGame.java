@@ -33,9 +33,6 @@ public class HostAGame extends AppCompatActivity {
                 if(swtch){
                     password.setVisibility(View.VISIBLE);
                     swtch = false;
-                    Toast.makeText(getApplicationContext(),
-                            "on",
-                            Toast.LENGTH_LONG).show();
                 }else {
                     password.setVisibility(View.INVISIBLE);
                     swtch = true;
