@@ -97,7 +97,7 @@ public class HostAGame extends AppCompatActivity {
                             }else{
                              GameId = jsonResponse.getString("gameId");
                                 Toast.makeText(getApplicationContext(),
-                                        "Game Created",
+                                        "Game Created.",
                                         Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
