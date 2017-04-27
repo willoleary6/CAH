@@ -13,62 +13,89 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="75px"
         android:inputType="textPersonName"
         android:theme="@style/Theme.App.Base"
         android:background="@color/white"
         android:ems="10"
         android:id="@+id/Username"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp"
-        android:hint="Username" />
+        android:hint="Username"
+        android:layout_marginBottom="16dp"
+        android:layout_above="@+id/Password"
+        android:layout_alignStart="@+id/Password"
+        android:layout_alignEnd="@+id/Password" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="75px"
         android:theme="@style/Theme.App.Base"
         android:inputType="textPassword"
         android:background="@color/white"
         android:ems="10"
         android:id="@+id/Password"
-        android:layout_marginTop="32dp"
         android:hint="Password"
-        android:layout_below="@+id/Username"
-        android:layout_alignStart="@+id/Username" />
+        android:layout_marginBottom="14dp"
+        android:layout_above="@+id/button2"
+        android:layout_alignStart="@+id/button2"
+        android:layout_alignEnd="@+id/button2" />
 
     <TextView
         android:text="Register here"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/button_border"
+        android:id="@+id/tvRegisterHere"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
-        android:id="@+id/tvRegisterHere" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Login"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         android:theme="@style/Theme.App.Base"
         android:background="@drawable/button_border"
-        android:layout_marginTop="28dp"
         android:id="@+id/button2"
         android:gravity="center"
         android:textColor="#ffffff"
+        android:textSize="20sp"
         android:textAllCaps="false"
-        android:layout_width="200dp"
-        android:layout_below="@+id/Password"
+        android:layout_width="300dp"
+        android:layout_marginBottom="22dp"
+        android:layout_above="@+id/noAccount"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/logHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="Log in"
-        android:textSize="40dp"
-        android:textColor="#FFFFFF" />
+        android:text="User Login"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/cahHeader"
+        android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:id="@+id/cahHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:textSize="45sp"
+        android:text="Cards Against Humanity"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/noAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        android:text="Dont't have an account? Sign up"
+        android:layout_marginBottom="11dp"
+        android:layout_above="@+id/tvRegisterHere"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -48,10 +48,16 @@ public class loginActivity extends AppCompatActivity {
             testCon.start();
             setContentView(R.layout.activity_login);
             Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
+            TextView gameTitle = (TextView) findViewById(R.id.cahHeader);
             TextView logHead = (TextView) findViewById(R.id.logHeader);
+            TextView user = (TextView) findViewById(R.id.Username);
+            TextView pass = (TextView) findViewById(R.id.Password);
             TextView logButton = (TextView) findViewById(R.id.button2);
             TextView regButton = (TextView) findViewById(R.id.tvRegisterHere);
+            gameTitle.setTypeface(font);
             logHead.setTypeface(font);
+            user.setTypeface(font);
+            pass.setTypeface(font);
             logButton.setTypeface(font);
             regButton.setTypeface(font);
             /*Set variables to users inputs*/

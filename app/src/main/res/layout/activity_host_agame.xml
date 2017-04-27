@@ -13,48 +13,81 @@
 
     <TextView
         android:text="Host a game"
+        android:textSize="45dp"
+        android:textColor="#ffffff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
+        android:id="@+id/hostHeader"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Back to Main Menu"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:id="@+id/mainMenu"
+        android:background="@drawable/button_border"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Back to main menu"
-        android:layout_width="wrap_content"
+        android:text="Create Lobby"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_marginBottom="30dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:id="@+id/makeLobby"
+        android:background="@drawable/button_border"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/mainMenu"
+        android:layout_alignStart="@+id/mainMenu" />
 
     <Switch
-        android:id="@+id/privte"
+        android:id="@+id/privateGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Make the game private?"
-        android:layout_below="@+id/editText"
-        android:layout_centerHorizontal="true" />
+        android:text="Make the game private?   "
+        android:layout_above="@+id/makeLobby"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="75px"
         android:inputType="textPersonName"
-        android:text="Name of Lobby"
+        android:theme="@style/Theme.App.Base"
+        android:background="@color/white"
+        android:hint="Name of Lobby"
         android:ems="10"
-        android:layout_marginTop="14dp"
-        android:id="@+id/editText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/LobbyName"
+        android:layout_above="@+id/LobbyPassword"
+        android:layout_alignStart="@+id/LobbyPassword"
+        android:layout_marginBottom="11dp"
+        android:layout_alignEnd="@+id/LobbyPassword" />
 
-    <EditText
-        android:id="@+id/LobbyPassword"
+    <TextView
+        android:id="@+id/createHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText"
-        android:layout_below="@+id/privte"
-        android:layout_marginTop="17dp"
+        android:text="Create a Lobby"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/hostHeader"
+        android:layout_alignEnd="@+id/privateGame" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="75px"
+        android:theme="@style/Theme.App.Base"
+        android:inputType="textPassword"
+        android:background="@color/white"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:id="@+id/LobbyPassword"
+        android:hint="Lobby Password"
+        android:layout_above="@+id/privateGame"
+        android:layout_alignStart="@+id/makeLobby"
+        android:layout_marginBottom="10dp"
+        android:layout_alignEnd="@+id/makeLobby" />
 </RelativeLayout>
