@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main_menu"
+    android:id="@+id/activity_ingame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
@@ -32,89 +31,74 @@
         android:layout_alignTop="@+id/black_card"
         android:layout_centerHorizontal="true">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/white_card1"
-        android:layout_toEndOf="@+id/white_card6"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/white_card1"
+            android:layout_toEndOf="@+id/white_card6"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout">
 
-        <Button
-            android:layout_width="350px"
-            android:layout_height="400px"
-            android:padding="10dp"
-            android:textSize="20dp"
-            android:gravity="start"
-            android:id="@+id/white_card1"
-            android:text="A lifetime of sadness."
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:background="@drawable/button_border_white"
-            />
+            <Button
+                android:layout_width="350px"
+                android:layout_height="400px"
+                android:padding="10dp"
+                android:textSize="20dp"
+                android:gravity="start"
+                android:id="@+id/white_card1"
+                android:text="A lifetime of sadness."
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:background="@drawable/button_border_white"  />
 
-        <Button
-            android:layout_width="350px"
-            android:layout_height="400px"
-            android:padding="10dp"
-            android:textSize="20dp"
-            android:gravity="start"
-            android:id="@+id/white_card2"
-            android:text="Auschwitz."
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:background="@drawable/button_border_white" />
+            <Button
+                android:layout_width="350px"
+                android:layout_height="400px"
+                android:padding="10dp"
+                android:textSize="20dp"
+                android:gravity="start"
+                android:id="@+id/white_card2"
+                android:text="Auschwitz."
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:background="@drawable/button_border_white" />
 
-        <Button
-            android:layout_width="350px"
-            android:layout_height="400px"
-            android:padding="10dp"
-            android:textSize="20dp"
-            android:gravity="start"
-            android:id="@+id/white_card3"
-            android:text="Racism."
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:background="@drawable/button_border_white"/>
+            <Button
+                android:layout_width="350px"
+                android:layout_height="400px"
+                android:padding="10dp"
+                android:textSize="20dp"
+                android:gravity="start"
+                android:id="@+id/white_card3"
+                android:text="Racism."
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:background="@drawable/button_border_white" />
 
-        <Button
-            android:layout_width="350px"
-            android:layout_height="400px"
-            android:padding="10dp"
-            android:textSize="20dp"
-            android:gravity="start"
-            android:id="@+id/white_card4"
-            android:text="________."
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:background="@drawable/button_border_white"/>
+            <Button
+                android:layout_width="350px"
+                android:layout_height="400px"
+                android:padding="10dp"
+                android:textSize="20dp"
+                android:gravity="start"
+                android:id="@+id/white_card4"
+                android:text="________."
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:background="@drawable/button_border_white" />
 
-        <Button
-            android:layout_width="350px"
-            android:layout_height="400px"
-            android:padding="10dp"
-            android:textSize="20dp"
-            android:gravity="start"
-            android:id="@+id/white_card5"
-            android:text="My sex life."
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:background="@drawable/button_border_white"/>
-
-        <Button
-            android:layout_width="350px"
-            android:layout_height="400px"
-            android:padding="10dp"
-            android:textSize="20dp"
-            android:gravity="start"
-            android:id="@+id/white_card6"
-            android:text="Public ridicule."
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:background="@drawable/button_border_white"/>
-
-    </LinearLayout>
-
+            <Button
+                android:layout_width="350px"
+                android:layout_height="400px"
+                android:padding="10dp"
+                android:textSize="20dp"
+                android:gravity="start"
+                android:id="@+id/white_card5"
+                android:text="My sex life."
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:background="@drawable/button_border_white" />
+        </LinearLayout>
     </ScrollView>
 
     <ImageView

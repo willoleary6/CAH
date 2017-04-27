@@ -14,7 +14,7 @@
     <EditText
         android:id="@+id/Username"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="75px"
         android:background="@color/white"
         android:ems="10"
         android:hint="Username"
@@ -28,7 +28,7 @@
     <EditText
         android:id="@+id/Password"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="75px"
         android:background="@color/white"
         android:ems="10"
         android:hint="Password"
@@ -46,11 +46,11 @@
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:textAllCaps="false"
-        android:layout_marginBottom="54dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/button_border"
         android:text="Register"
         android:theme="@style/Theme.App.Base"
-        android:layout_above="@+id/tvLoginHere"
+        android:layout_above="@+id/accountExists"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -72,9 +72,9 @@
         android:text="User Registration"
         android:textColor="#ffffff"
         android:textSize="30sp"
-        android:layout_marginBottom="22dp"
-        android:layout_above="@+id/Username"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/cahHeader"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
     <TextView
         android:id="@+id/cahHeader"
         android:layout_width="wrap_content"

@@ -27,11 +27,15 @@ public class RegisterActivity extends AppCompatActivity {
         Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
         TextView gameTitle = (TextView) findViewById(R.id.cahHeader);
         TextView regHead = (TextView) findViewById(R.id.regHeader);
+        TextView user = (TextView) findViewById(R.id.Username);
+        TextView pass = (TextView) findViewById(R.id.Password);
         TextView regButton = (TextView) findViewById(R.id.button2);
         TextView accExists = (TextView) findViewById(R.id.accountExists);
         TextView logButton = (TextView) findViewById(R.id.tvLoginHere);
         gameTitle.setTypeface(font);
         regHead.setTypeface(font);
+        user.setTypeface(font);
+        pass.setTypeface(font);
         regButton.setTypeface(font);
         accExists.setTypeface(font);
         logButton.setTypeface(font);
