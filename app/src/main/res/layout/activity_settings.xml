@@ -12,30 +12,36 @@
     tools:context="com.willoleary6gmail.cah.Settings">
     <Button
         android:text="Back to main menu"
-        android:layout_width="wrap_content"
+        android:layout_width="300sp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="194dp"
-        android:id="@+id/button" />
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:textAllCaps="false"
+        android:id="@+id/button"
+        android:background="@drawable/button_border"
+        android:layout_below="@+id/logOutButton"
+        android:layout_alignStart="@+id/logOutButton" />
 
     <TextView
         android:text="Settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:id="@+id/textView"
+        android:id="@+id/settingHeader"
+        android:textSize="45dp"
+        android:textColor="#ffffff"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Log out"
-        android:layout_width="wrap_content"
+        android:layout_width="300sp"
         android:layout_height="wrap_content"
         android:id="@+id/logOutButton"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        tools:text="Log out" />
+        android:textSize="20dp"
+        android:textAllCaps="false"
+        android:background="@drawable/button_border"
+        tools:text="Log out"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
