@@ -29,20 +29,13 @@
         android:layout_alignParentStart="true" />
 
     <Switch
-        android:text="Switch"
+        android:id="@+id/privte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/switch2"
-        android:layout_above="@+id/button"
+        android:layout_marginTop="16dp"
+        android:text="Make the game private?"
+        android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true" />
-
-    <Switch
-        android:text="Switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/switch1"
-        android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/textView" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -50,8 +43,18 @@
         android:inputType="textPersonName"
         android:text="Name of Lobby"
         android:ems="10"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:id="@+id/editText" />
+        android:id="@+id/editText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/LobbyPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editText"
+        android:layout_below="@+id/privte"
+        android:layout_marginTop="17dp"
+        android:ems="10"
+        android:inputType="textPassword" />
 </RelativeLayout>
