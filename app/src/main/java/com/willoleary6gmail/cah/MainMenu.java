@@ -45,9 +45,6 @@ public class MainMenu extends AppCompatActivity {
         TextView details = (TextView) findViewById(R.id.userName);
         details.setTypeface(font);
         details.setText(name);
-        Toast.makeText(getApplicationContext(),
-                "Logged in as '"+name+"'",
-                Toast.LENGTH_LONG).show();
         FindAGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

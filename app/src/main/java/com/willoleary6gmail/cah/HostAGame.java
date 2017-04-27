@@ -1,6 +1,8 @@
 package com.willoleary6gmail.cah;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,30 +13,34 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class HostAGame extends AppCompatActivity {
     boolean swtch = true;
     Button main;
+    private static final String URL = "https://15155528serversite.000webhostapp.com/NewGame/NewGame.php";
+    Button makeLobby;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_agame);
+        SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
+        final String username = userInfo.getString("username", "");
+        final String password = userInfo.getString("password", "");
         Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
-        TextView hostTitle = (TextView) findViewById(R.id.hostHeader);
-        TextView createHead = (TextView) findViewById(R.id.createHeader);
-        TextView lobbyTitle = (TextView) findViewById(R.id.LobbyName);
-        TextView lobbyPass = (TextView) findViewById(R.id.LobbyPassword);
-        TextView createLobby = (TextView) findViewById(R.id.makeLobby);
-        TextView backToMain = (TextView) findViewById(R.id.mainMenu);
-        hostTitle.setTypeface(font);
-        createHead.setTypeface(font);
-        lobbyTitle.setTypeface(font);
-        lobbyPass.setTypeface(font);
-        createLobby.setTypeface(font);
-        backToMain.setTypeface(font);
-        final EditText password = (EditText) findViewById(R.id.LobbyPassword);
-        password.setVisibility(View.INVISIBLE);
+        final TextView Name = (TextView) findViewById(R.id.LobbyName);
+        final TextView PassCode = (TextView) findViewById(R.id.LobbyPassword);
+        PassCode.setVisibility(View.INVISIBLE);
         Switch privateGame = (Switch) findViewById(R.id.privateGame);
         privateGame.setTypeface(font);
+       // setText(font);
+
+
         main = (Button) findViewById(R.id.mainMenu);
         main.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,19 +49,95 @@ public class HostAGame extends AppCompatActivity {
                 startActivity(toFindAGame);
             }
         });
+
+        makeLobby = (Button) findViewById(R.id.makeLobby);
+        makeLobby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String lobbyName = Name.getText().toString();
+                final String lobbyPassCode = PassCode.getText().toString();
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            String GameId;
+                            boolean[] fromServer = new boolean[3];
+                                /*two boolean arrays first to check if we can connect
+                                * with the database, and the second to ensure we have the
+                                * right details*/
+                            fromServer[0] = jsonResponse.getBoolean("success");
+                            fromServer[1] = jsonResponse.getBoolean("valid_name");
+                            fromServer[2] = jsonResponse.getBoolean("Lobby_name");
+                            if(!fromServer[2]) {
+                                Toast.makeText(getApplicationContext(),
+                                        "Error: Error that name is already in use",
+                                        Toast.LENGTH_LONG).show();
+                            }else if(!fromServer[1]) {
+                                Toast.makeText(getApplicationContext(),
+                                        "Error: Credentials invalid",
+                                        Toast.LENGTH_LONG).show();
+                                SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = userInfo.edit();
+                                editor.clear();
+                                editor.commit();
+                                finish();
+                                try {
+                                    wait(1000);
+                                    Intent toLogIn = new Intent(HostAGame.this, loginActivity.class);
+                                    startActivity(toLogIn);
+                                }catch (java.lang.InterruptedException e){
+                                    e.printStackTrace();
+                                }
+                            }else if(!fromServer[0]){
+                                Toast.makeText(getApplicationContext(),
+                                        "Error: Server error, please try again soon",
+                                        Toast.LENGTH_LONG).show();
+                            }else{
+                             GameId = jsonResponse.getString("gameId");
+                                Toast.makeText(getApplicationContext(),
+                                        "Game Created",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                Server_Login_Register_Request createRequest = new Server_Login_Register_Request(username, password, lobbyName, lobbyPassCode, swtch, responseListener, URL);
+                RequestQueue queue = Volley.newRequestQueue(HostAGame.this);
+                queue.add(createRequest);
+            }
+        });
+
         privateGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(swtch){
-                    password.setVisibility(View.VISIBLE);
+                    PassCode.setVisibility(View.VISIBLE);
                     swtch = false;
                 }else {
-                    password.setVisibility(View.INVISIBLE);
+                    PassCode.setVisibility(View.INVISIBLE);
                     swtch = true;
                 }
 
             }
         });
 
+    }
+
+
+    private void setText(Typeface font){
+        TextView createHead = (TextView) findViewById(R.id.createHeader);
+        TextView lobbyTitle = (TextView) findViewById(R.id.LobbyName);
+        TextView lobbyPass = (TextView) findViewById(R.id.LobbyPassword);
+        TextView createLobby = (TextView) findViewById(R.id.makeLobby);
+        TextView backToMain = (TextView) findViewById(R.id.mainMenu);
+        createHead.setTypeface(font);
+        lobbyTitle.setTypeface(font);
+        lobbyPass.setTypeface(font);
+        createLobby.setTypeface(font);
+        backToMain.setTypeface(font);
     }
 }

@@ -11,16 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.willoleary6gmail.cah.HostAGame">
 
-    <TextView
-        android:text="Host a game"
-        android:textSize="45dp"
-        android:textColor="#ffffff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/hostHeader"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <Button
         android:text="Back to Main Menu"
         android:layout_width="300dp"
@@ -49,9 +39,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Make the game private?   "
-        android:layout_above="@+id/makeLobby"
+        android:layout_below="@+id/LobbyName"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginTop="11dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -62,20 +52,9 @@
         android:hint="Name of Lobby"
         android:ems="10"
         android:id="@+id/LobbyName"
-        android:layout_above="@+id/LobbyPassword"
-        android:layout_alignStart="@+id/LobbyPassword"
-        android:layout_marginBottom="11dp"
-        android:layout_alignEnd="@+id/LobbyPassword" />
-
-    <TextView
-        android:id="@+id/createHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create a Lobby"
-        android:textSize="30sp"
-        android:textColor="#FFFFFF"
-        android:layout_below="@+id/hostHeader"
-        android:layout_alignEnd="@+id/privateGame" />
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/createHeader"
+        android:layout_alignStart="@+id/privateGame" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -86,8 +65,6 @@
         android:ems="10"
         android:id="@+id/LobbyPassword"
         android:hint="Lobby Password"
-        android:layout_above="@+id/privateGame"
-        android:layout_alignStart="@+id/makeLobby"
-        android:layout_marginBottom="10dp"
-        android:layout_alignEnd="@+id/makeLobby" />
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/privateGame" />
 </RelativeLayout>

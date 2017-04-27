@@ -1,5 +1,8 @@
 package com.willoleary6gmail.cah;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
@@ -16,17 +19,26 @@ public class Server_Login_Register_Request extends StringRequest {
 
     /*Constructor that  creates a hash map for the register and login functions*/
     public Server_Login_Register_Request(String username, String password, Response.Listener<String> listener, String URL) {
-        super(Method.POST, SERVER_REQUEST_URL,listener,null);
-        SERVER_REQUEST_URL = URL;
+        super(Method.POST,URL,listener,null);
+
         params = new HashMap<>();
         params.put("username",username);
         params.put("password",password);
     }
     public Server_Login_Register_Request(Response.Listener<String> listener, String URL) {
-        super(Method.POST, SERVER_REQUEST_URL,listener,null);
-        SERVER_REQUEST_URL = URL;
+        super(Method.POST,URL,listener,null);
         params = new HashMap<>();
         params.put("username","test");
+    }
+    public Server_Login_Register_Request(String username, String password,String LobbyName,String LobbyPasscode, boolean swtch, Response.Listener<String> listener, String URL) {
+        super(Method.POST,URL,listener,null);
+        params = new HashMap<>();
+        params.put("username",username);
+        params.put("password",password);
+        params.put("GameName",LobbyName);
+        if(!swtch){
+            params.put("lobbyPassCode", LobbyPasscode);
+        }
     }
 
     @Override

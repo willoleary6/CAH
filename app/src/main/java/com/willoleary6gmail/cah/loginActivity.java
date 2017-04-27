@@ -38,14 +38,6 @@ public class loginActivity extends AppCompatActivity {
         if (name != "" || pwd != "") {
             loginActivity.this.startActivity(toMainMenu);
         } else {
-            Runnable estabConnection = new Runnable() {
-                @Override
-                public void run() {
-                    establishConnection();
-                }
-            };
-            Thread testCon = new Thread(estabConnection);
-            testCon.start();
             setContentView(R.layout.activity_login);
             Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
             TextView gameTitle = (TextView) findViewById(R.id.cahHeader);
@@ -144,24 +136,6 @@ public class loginActivity extends AppCompatActivity {
         edit.apply();
 
     }
-    private void establishConnection() {
-        Response.Listener<String> TestConnection = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    // boolean fromServer =
-                } catch (JSONException e) {
 
-                }
-            }
-        };
-                    /*creates a hash map for volley*/
-        Server_Login_Register_Request testConnection = new Server_Login_Register_Request(TestConnection,URL);
-        RequestQueue queue = Volley.newRequestQueue(loginActivity.this);
-        //adds the login request to the que
-        queue.add(testConnection);
-
-        }
 }
 
