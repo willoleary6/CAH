@@ -3,6 +3,7 @@ package com.willoleary6gmail.cah;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -29,10 +30,20 @@ public class MainMenu extends AppCompatActivity {
         Button FindAGame = (Button) findViewById(R.id.findGame);
         Button HostAGame = (Button) findViewById(R.id.hostGame);
         Button Settings  = (Button) findViewById(R.id.settings);
+        Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
+        TextView gameTitle = (TextView) findViewById(R.id.cahHeader);
+        TextView findButton = (TextView) findViewById(R.id.findGame);
+        TextView hostButton = (TextView) findViewById(R.id.hostGame);
+        TextView setButton = (TextView) findViewById(R.id.settings);
+        gameTitle.setTypeface(font);
+        findButton.setTypeface(font);
+        hostButton.setTypeface(font);
+        setButton.setTypeface(font);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
         String name = userInfo.getString("username", "");
         String pwd = userInfo.getString("password", "");
         TextView details = (TextView) findViewById(R.id.userName);
+        details.setTypeface(font);
         details.setText(name);
         Toast.makeText(getApplicationContext(),
                 "Logged in as '"+name+"'",

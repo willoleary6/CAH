@@ -3,6 +3,7 @@ package com.willoleary6gmail.cah;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class loginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         final Intent toMainMenu = new Intent(loginActivity.this, MainMenu.class);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
         String name = userInfo.getString("username", "");
@@ -45,6 +47,13 @@ public class loginActivity extends AppCompatActivity {
             Thread testCon = new Thread(estabConnection);
             testCon.start();
             setContentView(R.layout.activity_login);
+            Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
+            TextView logHead = (TextView) findViewById(R.id.logHeader);
+            TextView logButton = (TextView) findViewById(R.id.button2);
+            TextView regButton = (TextView) findViewById(R.id.tvRegisterHere);
+            logHead.setTypeface(font);
+            logButton.setTypeface(font);
+            regButton.setTypeface(font);
             /*Set variables to users inputs*/
             final EditText etUsername = (EditText) findViewById(R.id.Username);
             final EditText etPassword = (EditText) findViewById(R.id.Password);

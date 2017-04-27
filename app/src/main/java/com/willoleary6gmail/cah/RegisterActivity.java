@@ -1,6 +1,7 @@
 package com.willoleary6gmail.cah;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,17 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
+        TextView gameTitle = (TextView) findViewById(R.id.cahHeader);
+        TextView regHead = (TextView) findViewById(R.id.regHeader);
+        TextView regButton = (TextView) findViewById(R.id.button2);
+        TextView accExists = (TextView) findViewById(R.id.accountExists);
+        TextView logButton = (TextView) findViewById(R.id.tvLoginHere);
+        gameTitle.setTypeface(font);
+        regHead.setTypeface(font);
+        regButton.setTypeface(font);
+        accExists.setTypeface(font);
+        logButton.setTypeface(font);
          final EditText etUsername = (EditText) findViewById(R.id.Username);
          final EditText etPassword = (EditText) findViewById(R.id.Password);
 
