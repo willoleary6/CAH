@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class HostAGame extends AppCompatActivity {
     boolean swtch = true;
@@ -32,6 +33,9 @@ public class HostAGame extends AppCompatActivity {
                 if(swtch){
                     password.setVisibility(View.VISIBLE);
                     swtch = false;
+                    Toast.makeText(getApplicationContext(),
+                            "on",
+                            Toast.LENGTH_LONG).show();
                 }else {
                     password.setVisibility(View.INVISIBLE);
                     swtch = true;
