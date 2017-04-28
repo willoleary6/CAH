@@ -23,7 +23,7 @@ import org.json.JSONObject;
 public class HostAGame extends AppCompatActivity {
     boolean swtch = true;
     Button main;
-    private static final String URL = "https://15155528serversite.000webhostapp.com/NewGame/NewGame.php";
+    private static final String URL = "https://15155528serversite.000webhostapp.com/NewGame.php";
     Button makeLobby;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,9 @@ public class HostAGame extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
-                            String GameId;
+                            int GameId;
+                            int handId;
+                            int playerId;
                             boolean[] fromServer = new boolean[3];
                                 /*two boolean arrays first to check if we can connect
                                 * with the database, and the second to ensure we have the
@@ -95,10 +97,27 @@ public class HostAGame extends AppCompatActivity {
                                         "Error: Server error, please try again soon",
                                         Toast.LENGTH_LONG).show();
                             }else{
-                             GameId = jsonResponse.getString("gameId");
-                                Toast.makeText(getApplicationContext(),
+                                 GameId = jsonResponse.getInt("gameId");
+                                 handId = jsonResponse.getInt("hand_id");
+                                 playerId = jsonResponse.getInt("playerId");
+                                 SharedPreferences gameDetails = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
+                                 SharedPreferences.Editor edit = gameDetails.edit();
+                                 edit.putInt("game_id",GameId);
+                                 edit.putInt("hand_id",handId);
+                                 edit.putInt("player1_id",playerId);
+                                 edit.putInt("myPlayer_id",playerId);
+                                 edit.putInt("player2_id",0);
+                                 edit.putString("player2_name","EMPTY");
+                                 edit.putInt("player3_id",0);
+                                 edit.putString("player3_name","EMPTY");
+                                 edit.putInt("player4_id",0);
+                                 edit.putString("player4_name","EMPTY");
+                                 edit.apply();
+                                 Toast.makeText(getApplicationContext(),
                                         "Game Created.",
                                         Toast.LENGTH_LONG).show();
+                                Intent LobbyIntent = new Intent(HostAGame.this,LobbyActivity.class);
+                                HostAGame.this.startActivity(LobbyIntent);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

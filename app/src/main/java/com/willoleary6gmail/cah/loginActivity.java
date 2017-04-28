@@ -25,7 +25,7 @@ public class loginActivity extends AppCompatActivity {
     private Button bLogin;
     private RequestQueue requestQueue;
    /*url to the php file that will handle the data and check the database if the users details are correct*/
-    private static final String URL = "https://15155528serversite.000webhostapp.com/Login/user_control.php";
+    private static final String URL = "https://15155528serversite.000webhostapp.com/Login.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,9 +82,9 @@ public class loginActivity extends AppCompatActivity {
                                 fromServer[1] = jsonResponse.getBoolean("data_fields");
 
                                 if (fromServer[0] && fromServer[1]) {
-                                    Intent intent = new Intent(loginActivity.this, loginActivity.class);
-                                    loginActivity.this.startActivity(intent);
-                                    saveInfo(updatedName, password);
+                                    int idNumber = jsonResponse.getInt("user_id");
+                                    Intent toMainMenu = new Intent(loginActivity.this, MainMenu.class);
+                                    saveInfo(updatedName, password, idNumber);
                                     loginActivity.this.startActivity(toMainMenu);
                                 } else if (!fromServer[0]) {
                                     Toast.makeText(getApplicationContext(),
@@ -124,7 +124,7 @@ public class loginActivity extends AppCompatActivity {
         MediaPlayer buttonClick = MediaPlayer.create(loginActivity.this, R.raw.click);
         buttonClick.start();
     }
-    public void saveInfo(String username, String password) {
+    public void saveInfo(String username, String password, int idNumber) {
         /*If the php script returns a valid response then the details will be saved
         * in shared prefrences and will be used in future occasions */
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
@@ -133,6 +133,7 @@ public class loginActivity extends AppCompatActivity {
         //setting the values
         edit.putString("username",username);
         edit.putString("password",password);
+        edit.putInt("user_id",idNumber);
         edit.apply();
 
     }

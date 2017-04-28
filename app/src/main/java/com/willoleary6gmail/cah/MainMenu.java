@@ -41,7 +41,6 @@ public class MainMenu extends AppCompatActivity {
         setButton.setTypeface(font);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
         String name = userInfo.getString("username", "");
-        String pwd = userInfo.getString("password", "");
         TextView details = (TextView) findViewById(R.id.userName);
         details.setTypeface(font);
         details.setText(name);

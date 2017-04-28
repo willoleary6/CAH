@@ -1,6 +1,8 @@
 package com.willoleary6gmail.cah;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 /*Class that registers the user for the game*/
 public class RegisterActivity extends AppCompatActivity {
-    private static final String URL = "https://15155528serversite.000webhostapp.com/Registration/user_control.php";
+    private static final String URL = "https://15155528serversite.000webhostapp.com/Register.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,15 +68,13 @@ public class RegisterActivity extends AppCompatActivity {
 
                             if(fromServer[0] && fromServer[1] && fromServer[2])
                             {
-                                Intent intent = new Intent(RegisterActivity.this,loginActivity.class);
-                                RegisterActivity.this.startActivity(intent);
+                                int idNumber = jsonResponse.getInt("user_id");
                                 Toast.makeText(getApplicationContext(),
                                         "Registration successful." ,
                                         Toast.LENGTH_LONG).show();
-                                        Intent LoginIntent = new Intent(RegisterActivity.this,loginActivity.class);
-                                        loginActivity log = new loginActivity();
-                                        log.saveInfo(updatedName,updatedPwd);
-                                        RegisterActivity.this.startActivity(LoginIntent);
+                                Intent LoginIntent = new Intent(RegisterActivity.this,loginActivity.class);
+                                saveInfo(updatedName,updatedPwd,idNumber);
+                                RegisterActivity.this.startActivity(LoginIntent);
                             }else if(!fromServer[2]){
                                 Toast.makeText(getApplicationContext(),
                                         "Error: You must enter a password and username.",
@@ -111,5 +111,18 @@ public class RegisterActivity extends AppCompatActivity {
     private void buttonSound() {
         MediaPlayer buttonClick = MediaPlayer.create(RegisterActivity.this, R.raw.click);
         buttonClick.start();
+    }
+    public void saveInfo(String username, String password, int idNumber) {
+        /*If the php script returns a valid response then the details will be saved
+        * in shared prefrences and will be used in future occasions */
+        SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor edit = userInfo.edit();
+        //setting the values
+        edit.putString("username",username);
+        edit.putString("password",password);
+        edit.putInt("user_id",idNumber);
+        edit.apply();
+
     }
 }

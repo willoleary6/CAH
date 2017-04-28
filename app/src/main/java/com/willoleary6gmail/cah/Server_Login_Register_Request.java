@@ -40,6 +40,12 @@ public class Server_Login_Register_Request extends StringRequest {
             params.put("lobbyPassCode", LobbyPasscode);
         }
     }
+    public Server_Login_Register_Request(String gameId,Response.Listener<String> listener, String URL) {
+        super(Method.POST,URL,listener,null);
+
+        params = new HashMap<>();
+        params.put("game_id",gameId);
+    }
 
     @Override
     public Map<String, String> getParams() {
