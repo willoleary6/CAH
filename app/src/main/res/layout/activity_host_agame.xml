@@ -38,33 +38,36 @@
         android:id="@+id/privateGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Make the game private?   "
-        android:layout_below="@+id/LobbyName"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp" />
+        android:layout_centerVertical="true"
+        android:checked="false"
+        android:text="Make the game private?   "
+        android:textColor="#ffffff"
+        android:theme="@style/switchColor" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="75px"
+        android:layout_height="30dp"
         android:inputType="textPersonName"
         android:theme="@style/Theme.App.Base"
         android:background="@color/white"
         android:hint="Name of Lobby"
         android:ems="10"
         android:id="@+id/LobbyName"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/createHeader"
-        android:layout_alignStart="@+id/privateGame" />
+        android:layout_marginBottom="12dp"
+        android:layout_above="@+id/privateGame"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="75px"
+        android:layout_height="30dp"
         android:theme="@style/Theme.App.Base"
         android:inputType="textPassword"
         android:background="@color/white"
         android:ems="10"
         android:id="@+id/LobbyPassword"
         android:hint="Lobby Password"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/privateGame" />
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/makeLobby"
+        android:layout_alignStart="@+id/LobbyName" />
 </RelativeLayout>

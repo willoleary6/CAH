@@ -13,7 +13,7 @@
     tools:context="com.willoleary6gmail.cah.MainMenu">
 
     <Button
-        android:text="Find a game"
+        android:text="Find a Game"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
@@ -26,7 +26,7 @@
         android:layout_marginBottom="11dp" />
 
     <Button
-        android:text="Host a game"
+        android:text="Host a Game"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
@@ -34,9 +34,9 @@
         android:textAllCaps="false"
         android:id="@+id/hostGame"
         android:background="@drawable/button_border"
+        android:layout_marginBottom="10dp"
         android:layout_above="@+id/settings"
-        android:layout_alignStart="@+id/findGame"
-        android:layout_marginBottom="10dp" />
+        android:layout_alignStart="@+id/findGame" />
 
     <Button
         android:text="Settings"

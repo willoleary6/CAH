@@ -148,12 +148,12 @@ public class HostAGame extends AppCompatActivity {
 
 
     private void setText(Typeface font){
-        TextView createHead = (TextView) findViewById(R.id.createHeader);
+        //TextView createHead = (TextView) findViewById(R.id.createHeader);
         TextView lobbyTitle = (TextView) findViewById(R.id.LobbyName);
         TextView lobbyPass = (TextView) findViewById(R.id.LobbyPassword);
         TextView createLobby = (TextView) findViewById(R.id.makeLobby);
         TextView backToMain = (TextView) findViewById(R.id.mainMenu);
-        createHead.setTypeface(font);
+        //createHead.setTypeface(font);
         lobbyTitle.setTypeface(font);
         lobbyPass.setTypeface(font);
         createLobby.setTypeface(font);

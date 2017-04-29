@@ -9,23 +9,80 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.willoleary6gmail.cah.FindAGame">
+    tools:context="com.willoleary6gmail.cah.JoinAGame">
 
     <Button
         android:text="Back to main menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="194dp"
-        android:id="@+id/button" />
-
-    <TextView
-        android:text="Find a game"
+        android:id="@+id/backToMain"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:text="Search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="89dp"
-        android:id="@+id/textView"
+        android:id="@+id/search"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/backToMain"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Join a game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/joinHeader"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="75px"
+        android:theme="@style/Theme.App.Base"
+        android:inputType="textPassword"
+        android:background="@color/white"
+        android:ems="10"
+        android:id="@+id/gamePassword"
+        android:hint=" Game Password"
+        android:layout_marginBottom="36dp"
+        android:layout_above="@+id/search"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="75px"
+        android:theme="@style/Theme.App.Base"
+        android:inputType="textPersonName"
+        android:background="@color/white"
+        android:ems="10"
+        android:id="@+id/gameName"
+        android:hint=" Game Name"
+        android:layout_above="@+id/gamePassword"
+        android:layout_alignStart="@+id/gamePassword"
+        android:layout_marginBottom="27dp" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gameName"
+        android:theme="@style/switchColor"
+        android:textColor="@color/white"
+        android:layout_alignEnd="@+id/joinHeader"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="18dp"
+        android:text="Public    " />
+
+    <TextView
+        android:id="@+id/privateHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="  Private"
+        android:textColor="@color/white"
+        android:layout_marginEnd="9dp"
+        android:layout_alignBaseline="@+id/switch1"
+        android:layout_alignBottom="@+id/switch1"
+        android:layout_alignEnd="@+id/backToMain" />
+
 </RelativeLayout>
