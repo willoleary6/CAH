@@ -55,7 +55,7 @@
         android:text="Ready"
         android:layout_alignBaseline="@+id/player1"
         android:layout_alignBottom="@+id/player1"
-        android:layout_toStartOf="@+id/button3" />
+        android:layout_toStartOf="@+id/start" />
 
     <CheckBox
         android:id="@+id/player2chck"
@@ -85,11 +85,11 @@
         android:text="Ready" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="Button" />
+        android:text="Start" />
 </RelativeLayout>

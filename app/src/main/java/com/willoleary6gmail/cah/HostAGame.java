@@ -64,6 +64,7 @@ public class HostAGame extends AppCompatActivity {
                             int GameId;
                             int handId;
                             int playerId;
+                            String timestamp;
                             boolean[] fromServer = new boolean[3];
                                 /*two boolean arrays first to check if we can connect
                                 * with the database, and the second to ensure we have the
@@ -99,8 +100,10 @@ public class HostAGame extends AppCompatActivity {
                                  GameId = jsonResponse.getInt("gameId");
                                  handId = jsonResponse.getInt("hand_id");
                                  playerId = jsonResponse.getInt("playerId");
+                                 timestamp = jsonResponse.getString("createdTimeStamp");
                                  SharedPreferences gameDetails = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
                                  SharedPreferences.Editor edit = gameDetails.edit();
+                                 edit.putString("timestamp",timestamp);
                                  edit.putInt("game_id",GameId);
                                  edit.putInt("hand_id",handId);
                                  edit.putString("player1_id",String.valueOf(playerId));
@@ -114,7 +117,7 @@ public class HostAGame extends AppCompatActivity {
                                  edit.putInt("playerCount",1);
                                  edit.apply();
                                  Toast.makeText(getApplicationContext(),
-                                        "Game Created.",
+                                        "Game Created. ",
                                         Toast.LENGTH_LONG).show();
                                 Intent LobbyIntent = new Intent(HostAGame.this,LobbyActivity.class);
                                 HostAGame.this.startActivity(LobbyIntent);

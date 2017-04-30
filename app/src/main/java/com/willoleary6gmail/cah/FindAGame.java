@@ -67,7 +67,7 @@ public class FindAGame extends AppCompatActivity {
                             int handId;
                             String playerId;
                             String playerUsername;
-                            //String test;
+                            String timestamp;
                             String [] playerNumbers = {"player1_id","player2_id","player3_id","player4_id"};
                             String [] playerUsernames = {"player1Username","player2Username","player3Username","player4Username"};
                             String [] [] playerDetails = new String [4][2];
@@ -84,8 +84,10 @@ public class FindAGame extends AppCompatActivity {
                                 SharedPreferences gameDetails = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor edit = gameDetails.edit();
                                 playerCount = jsonResponse.getInt("playerCount");
+                                timestamp = jsonResponse.getString("CreatedTimeStamp");
                                 myId = jsonResponse.getInt("myId");
                                 handId = jsonResponse.getInt("hand_id");
+                                edit.putString("timestamp",timestamp);
                                 edit.putInt("playerCount",playerCount);
                                 edit.putInt("hand_id",handId);
                                 edit.putInt("myPlayer_id",myId);
@@ -104,9 +106,9 @@ public class FindAGame extends AppCompatActivity {
                                             playerNumbers[i]+" "+playerId+"    "+ playerUsernames[i]+"   "+ playerUsername,
                                             Toast.LENGTH_LONG).show();*/
                                 }
-                                /*Toast.makeText(getApplicationContext(),
+                                Toast.makeText(getApplicationContext(),
                                         "Working ",
-                                        Toast.LENGTH_LONG).show();*/
+                                        Toast.LENGTH_LONG).show();
                                     edit.apply();
                                     Intent toLogIn = new Intent(FindAGame.this, LobbyActivity.class);
                                     startActivity(toLogIn);
