@@ -3,12 +3,11 @@ package com.willoleary6gmail.cah;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +20,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static android.R.attr.button;
 
 public class FindAGame extends AppCompatActivity {
     boolean switchClick = true;
@@ -32,6 +30,8 @@ public class FindAGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_agame);
+        Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
+        setText(font);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
         final String user_id = String.valueOf(userInfo.getInt("user_id",0));
         final TextView gName = (TextView) findViewById(R.id.gameName);
@@ -169,5 +169,22 @@ public class FindAGame extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void setText(Typeface font) {
+        TextView findTitle = (TextView) findViewById(R.id.findHeader);
+        TextView publicPrivateSwitch = (TextView) findViewById(R.id.switch1);
+        TextView privateText = (TextView) findViewById(R.id.privateHeader);
+        TextView gameName = (TextView) findViewById(R.id.gameName);
+        TextView gamePass = (TextView) findViewById(R.id.gamePassword);
+        TextView searchButton = (TextView) findViewById(R.id.search);
+        TextView mainMenuButton = (TextView) findViewById(R.id.backToMain);
+        findTitle.setTypeface(font);
+        publicPrivateSwitch.setTypeface(font);
+        privateText.setTypeface(font);
+        gameName.setTypeface(font);
+        gamePass.setTypeface(font);
+        searchButton.setTypeface(font);
+        mainMenuButton.setTypeface(font);
     }
 }

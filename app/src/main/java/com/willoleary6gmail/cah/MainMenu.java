@@ -11,16 +11,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-
 
 public class MainMenu extends AppCompatActivity {
     MediaPlayer buttonClick;
-    ImageButton FindAGame,HostAGame,Settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +25,7 @@ public class MainMenu extends AppCompatActivity {
         Button HostAGame = (Button) findViewById(R.id.hostGame);
         Button Settings  = (Button) findViewById(R.id.settings);
         Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
-        TextView gameTitle = (TextView) findViewById(R.id.cahHeader);
-        TextView findButton = (TextView) findViewById(R.id.findGame);
-        TextView hostButton = (TextView) findViewById(R.id.hostGame);
-        TextView setButton = (TextView) findViewById(R.id.settings);
-        gameTitle.setTypeface(font);
-        findButton.setTypeface(font);
-        hostButton.setTypeface(font);
-        setButton.setTypeface(font);
+        setText(font);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
         String name = userInfo.getString("username", "");
         TextView details = (TextView) findViewById(R.id.userName);
@@ -89,5 +76,16 @@ public class MainMenu extends AppCompatActivity {
     private void buttonSound() {
         buttonClick = MediaPlayer.create(MainMenu.this, R.raw.click);
         buttonClick.start();
+    }
+
+    private void setText(Typeface font) {
+        TextView gameTitle = (TextView) findViewById(R.id.cahHeader);
+        TextView findButton = (TextView) findViewById(R.id.findGame);
+        TextView hostButton = (TextView) findViewById(R.id.hostGame);
+        TextView setButton = (TextView) findViewById(R.id.settings);
+        gameTitle.setTypeface(font);
+        findButton.setTypeface(font);
+        hostButton.setTypeface(font);
+        setButton.setTypeface(font);
     }
 }

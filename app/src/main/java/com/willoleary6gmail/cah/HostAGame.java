@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +37,7 @@ public class HostAGame extends AppCompatActivity {
         PassCode.setVisibility(View.INVISIBLE);
         Switch privateGame = (Switch) findViewById(R.id.privateGame);
         privateGame.setTypeface(font);
-       // setText(font);
+        setText(font);
 
 
         main = (Button) findViewById(R.id.mainMenu);
@@ -149,12 +148,14 @@ public class HostAGame extends AppCompatActivity {
 
 
     private void setText(Typeface font){
-        //TextView createHead = (TextView) findViewById(R.id.createHeader);
+        TextView hostHead = (TextView) findViewById(R.id.hostHeader);
+        TextView createHead = (TextView) findViewById(R.id.createHeader);
         TextView lobbyTitle = (TextView) findViewById(R.id.LobbyName);
         TextView lobbyPass = (TextView) findViewById(R.id.LobbyPassword);
         TextView createLobby = (TextView) findViewById(R.id.makeLobby);
         TextView backToMain = (TextView) findViewById(R.id.mainMenu);
-        //createHead.setTypeface(font);
+        hostHead.setTypeface(font);
+        createHead.setTypeface(font);
         lobbyTitle.setTypeface(font);
         lobbyPass.setTypeface(font);
         createLobby.setTypeface(font);

@@ -9,79 +9,93 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.willoleary6gmail.cah.JoinAGame">
+    tools:context="com.willoleary6gmail.cah.FindAGame">
 
     <Button
-        android:text="Back to main menu"
-        android:layout_width="wrap_content"
+        android:text="@string/back_to_main"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/backToMain"
+        android:background="@drawable/button_border"
+        android:textAllCaps="false"
+        android:textSize="20sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
     <Button
-        android:text="Search"
-        android:layout_width="wrap_content"
+        android:text="@string/search"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/search"
-        android:layout_marginBottom="20dp"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:background="@drawable/button_border"
+        android:layout_marginBottom="30dp"
         android:layout_above="@+id/backToMain"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="Join a game"
+        android:text="@string/find_a_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/joinHeader"
+        android:id="@+id/findHeader"
+        android:textColor="@color/white"
+        android:textSize="45sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="75px"
+        android:layout_height="30dp"
         android:theme="@style/Theme.App.Base"
         android:inputType="textPassword"
         android:background="@color/white"
         android:ems="10"
         android:id="@+id/gamePassword"
-        android:hint=" Game Password"
-        android:layout_marginBottom="36dp"
+        android:hint="@string/game_password"
+        android:layout_marginBottom="12dp"
         android:layout_above="@+id/search"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/search"
+        android:layout_alignEnd="@+id/search" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="75px"
+        android:layout_height="30dp"
         android:theme="@style/Theme.App.Base"
         android:inputType="textPersonName"
         android:background="@color/white"
         android:ems="10"
         android:id="@+id/gameName"
-        android:hint=" Game Name"
+        android:hint="@string/game_password"
         android:layout_above="@+id/gamePassword"
-        android:layout_alignStart="@+id/gamePassword"
-        android:layout_marginBottom="27dp" />
+        android:layout_marginBottom="12dp"
+        android:layout_alignStart="@+id/search"
+        android:layout_alignEnd="@+id/search" />
 
     <Switch
         android:id="@+id/switch1"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/gameName"
         android:textColor="@color/white"
-        android:layout_alignEnd="@+id/joinHeader"
+        android:textSize="20sp"
         android:layout_marginBottom="15dp"
-        android:layout_marginEnd="18dp"
-        android:text="Public    " />
+        android:text="@string/public_switch"
+        android:layout_marginStart="20dp"
+        android:theme="@style/switchColor"
+        android:layout_above="@+id/gameName"
+        android:layout_alignStart="@+id/findHeader" />
 
     <TextView
         android:id="@+id/privateHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="  Private"
+        android:textSize="20sp"
+        android:text="@string/private_switch"
         android:textColor="@color/white"
-        android:layout_marginEnd="9dp"
+        android:layout_marginEnd="20dp"
         android:layout_alignBaseline="@+id/switch1"
         android:layout_alignBottom="@+id/switch1"
-        android:layout_alignEnd="@+id/backToMain" />
+        android:layout_alignEnd="@+id/findHeader" />
 
 </RelativeLayout>

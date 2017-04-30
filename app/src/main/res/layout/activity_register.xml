@@ -14,28 +14,28 @@
     <EditText
         android:id="@+id/Username"
         android:layout_width="wrap_content"
-        android:layout_height="75px"
+        android:layout_height="30dp"
         android:background="@color/white"
         android:ems="10"
-        android:hint="Username"
+        android:hint="@string/username"
         android:inputType="textPersonName"
         android:theme="@style/Theme.App.Base"
         android:layout_above="@+id/Password"
-        android:layout_marginBottom="11dp"
+        android:layout_marginBottom="14dp"
         android:layout_alignEnd="@+id/Password"
         android:layout_alignStart="@+id/Password" />
 
     <EditText
         android:id="@+id/Password"
         android:layout_width="wrap_content"
-        android:layout_height="75px"
+        android:layout_height="30dp"
         android:background="@color/white"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:theme="@style/Theme.App.Base"
         android:layout_above="@+id/button2"
-        android:layout_marginBottom="11dp"
+        android:layout_marginBottom="14dp"
         android:layout_alignEnd="@+id/button2"
         android:layout_alignStart="@+id/button2" />
 
@@ -43,12 +43,12 @@
         android:id="@+id/button2"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textAllCaps="false"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="25dp"
         android:background="@drawable/button_border"
-        android:text="Register"
+        android:text="@string/register"
         android:theme="@style/Theme.App.Base"
         android:layout_above="@+id/accountExists"
         android:layout_centerHorizontal="true" />
@@ -58,9 +58,9 @@
         android:layout_width="200dp"
         android:layout_height="30dp"
         android:gravity="center"
-        android:text="Login here"
+        android:text="@string/login_here"
         android:textSize="15sp"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         android:background="@drawable/button_border"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
@@ -69,21 +69,20 @@
         android:id="@+id/regHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Registration"
-        android:textColor="#ffffff"
+        android:text="@string/user_reg_header"
+        android:textColor="@color/white"
         android:textSize="30sp"
         android:layout_below="@+id/cahHeader"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/cahHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         android:gravity="center"
         android:textSize="45sp"
-        android:text="Cards Against Humanity"
+        android:text="@string/cards_against_humanity_header"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -91,10 +90,10 @@
         android:id="@+id/accountExists"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:textSize="12sp"
-        android:text="Have an account already?"
-        android:layout_marginBottom="11dp"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:text="@string/account_exists_text"
+        android:layout_marginBottom="10dp"
         android:layout_above="@+id/tvLoginHere"
         android:layout_centerHorizontal="true" />
 
