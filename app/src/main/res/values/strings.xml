@@ -27,6 +27,10 @@
     <string name="log_out">Log out</string>
     <string name="login">Login</string>
     <string name="user_login">User Login</string>
-
-
+    <string name="players">Players</string>
+    <string name="player_ready">Ready</string>
+    <string name="start_game">Start Game</string>
+    <string name="leave_lobby">Leave Lobby</string>
+    <string name="game_lobby">Game Lobby</string>
+    <string name="host">Host</string>
 </resources>

@@ -24,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -33,16 +32,19 @@ import java.util.concurrent.TimeUnit;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class LobbyActivity extends AppCompatActivity {
+
+    private ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(0);
     boolean dontFire = false;
     private String timestamp;
-    ScheduledExecutorService scheduleTaskExecutor;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(0);
         final SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
-        final String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
+        String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
         String name = userInfo.getString("username", "");
         setContentView(R.layout.activity_lobby);
         timestamp = gameInfo.getString("timestamp", "");
@@ -56,73 +58,7 @@ public class LobbyActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean [] allReady = new boolean[4];
-                SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
-                if(!(gameInfo.getString("player1_id", "").equals("0"))){
-                    if (hostChck.isChecked()) {
-                        allReady[0] = true;
-                    }else{
-                        allReady[0] = false;
-                    }
-                }else{
-                    allReady[0] = true;
-                }
-                if(!(gameInfo.getString("player2_id", "").equals("0"))){
-                }else{
-                    allReady[1] = true;
-                }
-                if(!(gameInfo.getString("player3_id", "").equals("0"))){
-                    if (player3Chck.isChecked()) {
-                        allReady[2] = true;
-                    }else{
-                        allReady[2] = false;
-                    }
-                }else{
-                    allReady[2] = true;
-                }
-                if(!(gameInfo.getString("player4_id", "").equals("0"))){
-                    if(player4Chck.isChecked()) {
-                        allReady[3] = true;
-                    }else{
-                        allReady[3] = false;
-                    }
-                }else{
-                    allReady[3] = true;
-                }
-                if(allReady[0] && allReady[1] && allReady[2] && allReady[3]){
-                    Intent StartGame = new Intent(LobbyActivity.this, inGame.class);
-                    LobbyActivity.this.startActivity(StartGame);
-                    /*String URL = "https://15155528serversite.000webhostapp.com/start.php";
-                    Response.Listener<String> responseListener = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                boolean fromServer;
-                                fromServer = jsonResponse.getBoolean("success");
-                                if(!fromServer) {
-                                    Toast.makeText(getApplicationContext(),
-                                            "Error: Unable to start game.",
-                                            Toast.LENGTH_LONG).show();
 
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    };
-                     //creates a hash map for volley
-                    Server_Login_Register_Request checked = new Server_Login_Register_Request(gameId,my_id, responseListener, URL);
-                    RequestQueue queue = Volley.newRequestQueue(LobbyActivity.this);
-                    //adds the login request to the que
-                    queue.add(checked);*/
-                }else{
-                    Toast.makeText(getApplicationContext(),
-                            "All players are not ready!",
-                            Toast.LENGTH_LONG).show();
-                }
             }
         });
         hostChck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -133,6 +69,9 @@ public class LobbyActivity extends AppCompatActivity {
                                                         if(!dontFire) {
                                                             Checked(playerId);
                                                         }
+                                                        Toast.makeText(getApplicationContext(),
+                                                                playerId,
+                                                                Toast.LENGTH_LONG).show();
                                                     }
                                                 }
         );
@@ -169,7 +108,6 @@ public class LobbyActivity extends AppCompatActivity {
                                                        }
                                                    }
             );
-        scheduleTaskExecutor = Executors.newScheduledThreadPool(1);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -179,15 +117,20 @@ public class LobbyActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
+                        Toast.makeText(getApplicationContext(),
+                                "ON",
+                                Toast.LENGTH_LONG).show();
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
-                            boolean[] fromServer = new boolean[4];
+                            boolean[] fromServer = new boolean[3];
                             fromServer[0] = jsonResponse.getBoolean("changes");
                             fromServer[1] = jsonResponse.getBoolean("NewUsers");
                             fromServer[2] = jsonResponse.getBoolean("checkBox");
-                            fromServer[3] = jsonResponse.getBoolean("start");
                             if (fromServer[0]) {
                                 if (fromServer[1]) {
+                                    Toast.makeText(getApplicationContext(),
+                                            "New User",
+                                            Toast.LENGTH_LONG).show();
                                     int count = jsonResponse.getInt("newUsersCount");
                                     SharedPreferences.Editor edit = gameInfo.edit();
                                     String[] playerIDTemplates = {"player1_id", "player2_id", "player3_id", "player4_id"};
@@ -219,9 +162,6 @@ public class LobbyActivity extends AppCompatActivity {
                                     for (int i = 0; i < count; i++) {
                                         UpdateCheckBox(jsonResponse.getString("checker"+(i+1)));
                                     }
-                                }else if (fromServer[3]){
-                                    Intent StartGame = new Intent(LobbyActivity.this, inGame.class);
-                                    LobbyActivity.this.startActivity(StartGame);
                                 }
                             }
                             dontFire = false;
@@ -241,6 +181,18 @@ public class LobbyActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(0);
+    }
+
     public void updateUi() {
         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
@@ -399,11 +351,21 @@ public class LobbyActivity extends AppCompatActivity {
             player4Chck.setClickable(true);
         }
     }
-    protected void onPause(){
-        super.onPause();
-        scheduleTaskExecutor.shutdown();
-    }
-
+  /*  public void beep() {
+        final Runnable beeper = new Runnable() {
+            public void run() {
+                beeperHandle.cancel(true);
+                scheduleTaskExecutor.shutdown();
+            }
+        };
+        final ScheduledFuture<?> beeperHandle = scheduleTaskExecutor.scheduleAtFixedRate(
+                beeper, 1, 1, SECONDS);
+        scheduleTaskExecutor.schedule(new Runnable() {
+            public void run() {
+                beeperHandle.cancel(true);
+            }
+        }, 1 * 1, SECONDS);
+    }*/
 }
 
 

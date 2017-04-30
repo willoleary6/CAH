@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,56 +14,73 @@
         android:id="@+id/player1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="26dp"
         android:text="EMPTY"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/player2chck"
+        android:layout_marginStart="185dp"
+        android:layout_alignStart="@+id/startGame" />
 
     <TextView
         android:id="@+id/player2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:text="EMPTY"
+        android:textSize="20sp"
+        android:textAllCaps="false"
         android:layout_above="@+id/player3chck"
-        android:layout_alignStart="@+id/player3"
-        android:layout_marginBottom="38dp"
-        android:text="EMPTY" />
+        android:layout_marginStart="185dp"
+        android:layout_alignStart="@+id/startGame" />
 
     <TextView
         android:id="@+id/player3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="EMPTY"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:layout_marginBottom="20dp"
         android:layout_above="@+id/player4chck"
-        android:layout_alignStart="@+id/player4"
-        android:layout_marginBottom="35dp" />
+        android:layout_marginStart="185dp"
+        android:layout_alignStart="@+id/startGame" />
 
     <TextView
         android:id="@+id/player4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/player1"
-        android:layout_marginBottom="106dp"
-        android:text="EMPTY" />
+        android:layout_marginBottom="40dp"
+        android:text="EMPTY"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:layout_above="@+id/startGame"
+        android:layout_marginStart="185dp"
+        android:layout_alignStart="@+id/startGame" />
 
     <CheckBox
         android:id="@+id/player1chck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ready"
+        android:text="@string/player_ready"
+        android:textSize="20sp"
         android:layout_alignBaseline="@+id/player1"
         android:layout_alignBottom="@+id/player1"
-        android:layout_toStartOf="@+id/start" />
+        android:layout_alignStart="@+id/leaveGame"
+        android:layout_marginStart="50dp" />
 
     <CheckBox
         android:id="@+id/player2chck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ready"
+        android:text="@string/player_ready"
+        android:textSize="20sp"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@id/startGame"
         android:layout_alignBaseline="@+id/player2"
         android:layout_alignBottom="@+id/player2"
-        android:layout_alignStart="@+id/player1chck" />
+        android:layout_alignStart="@+id/leaveGame"
+        android:layout_marginStart="50dp" />
 
     <CheckBox
         android:id="@+id/player3chck"
@@ -72,8 +88,10 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/player3"
         android:layout_alignBottom="@+id/player3"
-        android:layout_alignStart="@+id/player2chck"
-        android:text="Ready" />
+        android:layout_alignStart="@+id/leaveGame"
+        android:text="@string/player_ready"
+        android:textSize="20sp"
+        android:layout_marginStart="50dp" />
 
     <CheckBox
         android:id="@+id/player4chck"
@@ -81,15 +99,78 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/player4"
         android:layout_alignBottom="@+id/player4"
-        android:layout_alignStart="@+id/player3chck"
-        android:text="Ready" />
+        android:layout_alignStart="@+id/leaveGame"
+        android:text="@string/player_ready"
+        android:textSize="20sp"
+        android:layout_marginStart="50dp" />
 
     <Button
-        android:id="@+id/start"
+        android:id="@+id/startGame"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:text="@string/start_game"
+        android:background="@drawable/button_border"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp" />
+
+    <Button
+        android:id="@+id/leaveGame"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_border"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:text="@string/leave_lobby"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp" />
+
+    <TextView
+        android:id="@+id/gameLobby"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:text="Start" />
+        android:text="@string/game_lobby" />
+
+    <TextView
+        android:id="@+id/players"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="@string/players"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginBottom="16dp"
+        android:layout_above="@+id/player1chck"
+        android:layout_alignStart="@+id/player1" />
+
+    <TextView
+        android:id="@+id/playerReady"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/player_ready"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_alignTop="@+id/players"
+        android:layout_alignStart="@+id/player1chck" />
+
+    <TextView
+        android:id="@+id/gameHost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:text="@string/host"
+        android:layout_alignBaseline="@+id/player1"
+        android:layout_alignBottom="@+id/player1"
+        android:layout_toStartOf="@+id/player1"
+        android:layout_marginEnd="44dp" />
+
 </RelativeLayout>
