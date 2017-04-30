@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -32,19 +33,16 @@ import java.util.concurrent.TimeUnit;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class LobbyActivity extends AppCompatActivity {
-
-    private ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(0);
     boolean dontFire = false;
     private String timestamp;
-
+    ScheduledExecutorService scheduleTaskExecutor;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(0);
         final SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
-        String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
+        final String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
         String name = userInfo.getString("username", "");
         setContentView(R.layout.activity_lobby);
         timestamp = gameInfo.getString("timestamp", "");
@@ -54,60 +52,124 @@ public class LobbyActivity extends AppCompatActivity {
         final CheckBox player2Chck = (CheckBox) findViewById(R.id.player2chck);
         final CheckBox player3Chck = (CheckBox) findViewById(R.id.player3chck);
         final CheckBox player4Chck = (CheckBox) findViewById(R.id.player4chck);
-        Button start = (Button) findViewById(R.id.start);
+        Button start = (Button) findViewById(R.id.startGame);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean [] allReady = new boolean[4];
+                SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
+                if(!(gameInfo.getString("player1_id", "").equals("0"))){
+                    if (hostChck.isChecked()) {
+                        allReady[0] = true;
+                    }else{
+                        allReady[0] = false;
+                    }
+                }else{
+                    allReady[0] = true;
+                }
+                if(!(gameInfo.getString("player2_id", "").equals("0"))){
+                }else{
+                    allReady[1] = true;
+                }
+                if(!(gameInfo.getString("player3_id", "").equals("0"))){
+                    if (player3Chck.isChecked()) {
+                        allReady[2] = true;
+                    }else{
+                        allReady[2] = false;
+                    }
+                }else{
+                    allReady[2] = true;
+                }
+                if(!(gameInfo.getString("player4_id", "").equals("0"))){
+                    if(player4Chck.isChecked()) {
+                        allReady[3] = true;
+                    }else{
+                        allReady[3] = false;
+                    }
+                }else{
+                    allReady[3] = true;
+                }
+                if(allReady[0] && allReady[1] && allReady[2] && allReady[3]){
+                    Intent StartGame = new Intent(LobbyActivity.this, inGame.class);
+                    LobbyActivity.this.startActivity(StartGame);
+                    /*String URL = "https://15155528serversite.000webhostapp.com/start.php";
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean fromServer;
+                                fromServer = jsonResponse.getBoolean("success");
+                                if(!fromServer) {
+                                    Toast.makeText(getApplicationContext(),
+                                            "Error: Unable to start game.",
+                                            Toast.LENGTH_LONG).show();
 
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                     //creates a hash map for volley
+                    Server_Login_Register_Request checked = new Server_Login_Register_Request(gameId,my_id, responseListener, URL);
+                    RequestQueue queue = Volley.newRequestQueue(LobbyActivity.this);
+                    //adds the login request to the que
+                    queue.add(checked);*/
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            "All players are not ready!",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
         hostChck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                    @Override
-                                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                        hostChck.setClickable(false);
-                                                        String playerId = gameInfo.getString("player1_id", "");
-                                                        if(!dontFire) {
-                                                            Checked(playerId);
-                                                        }
-                                                        Toast.makeText(getApplicationContext(),
-                                                                playerId,
-                                                                Toast.LENGTH_LONG).show();
+                                                @Override
+                                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                    hostChck.setClickable(false);
+                                                    String playerId = gameInfo.getString("player1_id", "");
+                                                    if(!dontFire) {
+                                                        Checked(playerId);
                                                     }
                                                 }
+                                            }
         );
         player2Chck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                       @Override
-                                                       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                           player2Chck.setClickable(false);
-                                                           String playerId = gameInfo.getString("player2_id", "");
-                                                           if(!dontFire) {
-                                                               Checked(playerId);
-                                                           };
-                                                       }
+                                                   @Override
+                                                   public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                       player2Chck.setClickable(false);
+                                                       String playerId = gameInfo.getString("player2_id", "");
+                                                       if(!dontFire) {
+                                                           Checked(playerId);
+                                                       };
                                                    }
+                                               }
         );
         player3Chck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                       @Override
-                                                       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                           player3Chck.setClickable(false);
-                                                           String playerId = gameInfo.getString("player3_id", "");
-                                                           if(!dontFire) {
-                                                               Checked(playerId);
-                                                           }
+                                                   @Override
+                                                   public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                       player3Chck.setClickable(false);
+                                                       String playerId = gameInfo.getString("player3_id", "");
+                                                       if(!dontFire) {
+                                                           Checked(playerId);
                                                        }
                                                    }
+                                               }
         );
         player4Chck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                       @Override
-                                                       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                           player4Chck.setClickable(false);
-                                                           String playerId = gameInfo.getString("player4_id", "");
-                                                           if(!dontFire) {
-                                                               Checked(playerId);
-                                                           }
+                                                   @Override
+                                                   public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                       player4Chck.setClickable(false);
+                                                       String playerId = gameInfo.getString("player4_id", "");
+                                                       if(!dontFire) {
+                                                           Checked(playerId);
                                                        }
                                                    }
-            );
+                                               }
+        );
+        scheduleTaskExecutor = Executors.newScheduledThreadPool(1);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -117,20 +179,15 @@ public class LobbyActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
-                        Toast.makeText(getApplicationContext(),
-                                "ON",
-                                Toast.LENGTH_LONG).show();
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
-                            boolean[] fromServer = new boolean[3];
+                            boolean[] fromServer = new boolean[4];
                             fromServer[0] = jsonResponse.getBoolean("changes");
                             fromServer[1] = jsonResponse.getBoolean("NewUsers");
                             fromServer[2] = jsonResponse.getBoolean("checkBox");
+                            fromServer[3] = jsonResponse.getBoolean("start");
                             if (fromServer[0]) {
                                 if (fromServer[1]) {
-                                    Toast.makeText(getApplicationContext(),
-                                            "New User",
-                                            Toast.LENGTH_LONG).show();
                                     int count = jsonResponse.getInt("newUsersCount");
                                     SharedPreferences.Editor edit = gameInfo.edit();
                                     String[] playerIDTemplates = {"player1_id", "player2_id", "player3_id", "player4_id"};
@@ -162,6 +219,9 @@ public class LobbyActivity extends AppCompatActivity {
                                     for (int i = 0; i < count; i++) {
                                         UpdateCheckBox(jsonResponse.getString("checker"+(i+1)));
                                     }
+                                }else if (fromServer[3]){
+                                    Intent StartGame = new Intent(LobbyActivity.this, inGame.class);
+                                    LobbyActivity.this.startActivity(StartGame);
                                 }
                             }
                             dontFire = false;
@@ -181,18 +241,6 @@ public class LobbyActivity extends AppCompatActivity {
 
 
     }
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-    }
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(0);
-    }
-
     public void updateUi() {
         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
@@ -201,7 +249,7 @@ public class LobbyActivity extends AppCompatActivity {
         String player1Username = gameInfo.getString("player1Username", "");
         String name = userInfo.getString("username", "");
 
-        Button start = (Button) findViewById(R.id.start);
+        Button start = (Button) findViewById(R.id.startGame);
         start.setClickable(false);
 
         TextView host = (TextView) findViewById(R.id.player1);
@@ -315,32 +363,32 @@ public class LobbyActivity extends AppCompatActivity {
         final CheckBox player3Chck = (CheckBox) findViewById(R.id.player3chck);
         final CheckBox player4Chck = (CheckBox) findViewById(R.id.player4chck);
         if(!(playerId.equals(my_id))) {
-             if (playerId.equals(gameInfo.getString("player1_id", ""))) {
-                 if (hostChck.isChecked()) {
-                     hostChck.setChecked(false);
-                 } else {
-                     hostChck.setChecked(true);
-                 }
-             } else if (playerId.equals(gameInfo.getString("player2_id", ""))) {
-                 if (player2Chck.isChecked()) {
-                     player2Chck.setChecked(false);
-                 } else {
-                     player2Chck.setChecked(true);
-                 }
-             } else if (playerId.equals(gameInfo.getString("player3_id", ""))) {
-                 if (player3Chck.isChecked()) {
-                     player3Chck.setChecked(false);
-                 } else {
-                     player3Chck.setChecked(true);
-                 }
-             } else if (playerId.equals(gameInfo.getString("player4_id", ""))) {
-                 if (player4Chck.isChecked()) {
-                     player4Chck.setChecked(false);
-                 } else {
-                     player4Chck.setChecked(true);
-                 }
-             }
-         }
+            if (playerId.equals(gameInfo.getString("player1_id", ""))) {
+                if (hostChck.isChecked()) {
+                    hostChck.setChecked(false);
+                } else {
+                    hostChck.setChecked(true);
+                }
+            } else if (playerId.equals(gameInfo.getString("player2_id", ""))) {
+                if (player2Chck.isChecked()) {
+                    player2Chck.setChecked(false);
+                } else {
+                    player2Chck.setChecked(true);
+                }
+            } else if (playerId.equals(gameInfo.getString("player3_id", ""))) {
+                if (player3Chck.isChecked()) {
+                    player3Chck.setChecked(false);
+                } else {
+                    player3Chck.setChecked(true);
+                }
+            } else if (playerId.equals(gameInfo.getString("player4_id", ""))) {
+                if (player4Chck.isChecked()) {
+                    player4Chck.setChecked(false);
+                } else {
+                    player4Chck.setChecked(true);
+                }
+            }
+        }
         if(playerId.equals(gameInfo.getString("player1_id","")) && playerId.equals(my_id)){
             hostChck.setClickable(true);
         }else if(playerId.equals(gameInfo.getString("player2_id","")) && playerId.equals(my_id)){
@@ -351,21 +399,11 @@ public class LobbyActivity extends AppCompatActivity {
             player4Chck.setClickable(true);
         }
     }
-  /*  public void beep() {
-        final Runnable beeper = new Runnable() {
-            public void run() {
-                beeperHandle.cancel(true);
-                scheduleTaskExecutor.shutdown();
-            }
-        };
-        final ScheduledFuture<?> beeperHandle = scheduleTaskExecutor.scheduleAtFixedRate(
-                beeper, 1, 1, SECONDS);
-        scheduleTaskExecutor.schedule(new Runnable() {
-            public void run() {
-                beeperHandle.cancel(true);
-            }
-        }, 1 * 1, SECONDS);
-    }*/
+    protected void onPause(){
+        super.onPause();
+        scheduleTaskExecutor.shutdown();
+    }
+
 }
 
 
