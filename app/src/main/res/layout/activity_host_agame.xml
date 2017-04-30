@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/hostHeader"
         android:textColor="@color/white"
-        android:textSize="45sp"
+        android:textSize="30sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

@@ -40,6 +40,8 @@
             android:screenOrientation="landscape" />
         <activity android:name=".LobbyActivity"
             android:screenOrientation="landscape"/>
+        <activity android:name=".inGame"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>
