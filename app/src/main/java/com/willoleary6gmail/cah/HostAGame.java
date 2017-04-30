@@ -22,8 +22,10 @@ import org.json.JSONObject;
 public class HostAGame extends AppCompatActivity {
     boolean swtch = true;
     Button main;
+    // URL for creating a new lobby in the database
     private static final String URL = "https://15155528serversite.000webhostapp.com/NewGame.php";
     Button makeLobby;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +41,7 @@ public class HostAGame extends AppCompatActivity {
         privateGame.setTypeface(font);
         setText(font);
 
-
+        // Returns you back to the main menu
         main = (Button) findViewById(R.id.mainMenu);
         main.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +51,7 @@ public class HostAGame extends AppCompatActivity {
             }
         });
 
+        // After all the fields are filled, the user can create the new lobby
         makeLobby = (Button) findViewById(R.id.makeLobby);
         makeLobby.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,11 +75,15 @@ public class HostAGame extends AppCompatActivity {
                             fromServer[0] = jsonResponse.getBoolean("success");
                             fromServer[1] = jsonResponse.getBoolean("valid_name");
                             fromServer[2] = jsonResponse.getBoolean("Lobby_name");
+
+
                             if(!fromServer[2]) {
+                                // If the lobby name exists in the database already
                                 Toast.makeText(getApplicationContext(),
                                         "Error: Error that name is already in use",
                                         Toast.LENGTH_LONG).show();
                             }else if(!fromServer[1]) {
+                                // If one or both (depending on if the player creates a private game) fields are not filled in
                                 Toast.makeText(getApplicationContext(),
                                         "Error: Credentials invalid",
                                         Toast.LENGTH_LONG).show();
@@ -93,10 +100,12 @@ public class HostAGame extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }else if(!fromServer[0]){
+                                // Displays error if for some reason that the server is inaccessible at that time
                                 Toast.makeText(getApplicationContext(),
                                         "Error: Server error, please try again soon",
                                         Toast.LENGTH_LONG).show();
                             }else{
+                                 // Lobby has been created successfully and the user is brought to the the main lobby activity
                                  GameId = jsonResponse.getInt("gameId");
                                  handId = jsonResponse.getInt("hand_id");
                                  playerId = jsonResponse.getInt("playerId");
@@ -127,12 +136,14 @@ public class HostAGame extends AppCompatActivity {
                         }
                     }
                 };
+                // Lobby data is stored onto the database by sending a request
                 Server_Login_Register_Request createRequest = new Server_Login_Register_Request(username, password, lobbyName, lobbyPassCode, swtch, responseListener, URL);
                 RequestQueue queue = Volley.newRequestQueue(HostAGame.this);
                 queue.add(createRequest);
             }
         });
 
+        // Displays the password field if the user chooses to create a private game i.e. presses the switch
         privateGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +160,7 @@ public class HostAGame extends AppCompatActivity {
 
     }
 
-
+    // Method for setting the font of the text
     private void setText(Typeface font){
         TextView hostHead = (TextView) findViewById(R.id.hostHeader);
         TextView createHead = (TextView) findViewById(R.id.createHeader);

@@ -39,6 +39,7 @@ public class FindAGame extends AppCompatActivity {
         gPassword.setVisibility(View.INVISIBLE);
         Switch publicPrivate = (Switch) findViewById(R.id.switch1);
 
+        // Returns you back to the main menu
         main = (Button) findViewById(R.id.backToMain);
         main.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +49,7 @@ public class FindAGame extends AppCompatActivity {
             }
         });
 
+        // Searches for the lobby within the database based on the user criteria supplied
         searchLobby = (Button) findViewById(R.id.search);
         searchLobby.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,31 +118,37 @@ public class FindAGame extends AppCompatActivity {
 
                             }else{
                                 if(!fromServer[0]){
+                                    // If the user is unable to join the game
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Join game failed",
                                             Toast.LENGTH_LONG).show();
                                     searchLobby.setClickable(true);
                                 }else if(!fromServer[1]){
+                                    // If the player is not created within the game
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Unable to create player entity",
                                             Toast.LENGTH_LONG).show();
                                     searchLobby.setClickable(true);
                                 }else if(!fromServer[2]){
+                                    // If the player is joined but their hand of cards is not created
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Unable to generate hand",
                                             Toast.LENGTH_LONG).show();
                                     searchLobby.setClickable(true);
                                 }else if(!fromServer[3]){
+                                    // If the game is full
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Game is full",
                                             Toast.LENGTH_LONG).show();
                                     searchLobby.setClickable(true);
                                 }else if(!fromServer[4]){
+                                    // If the game does not exist
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Unable to find game",
                                             Toast.LENGTH_LONG).show();
                                     searchLobby.setClickable(true);
                                 }else{
+                                    // If something unexpected results in the find game being unsuccessful
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Something went wrong",
                                             Toast.LENGTH_LONG).show();
@@ -152,12 +160,14 @@ public class FindAGame extends AppCompatActivity {
                         }
                     }
                 };
+                // A request is sent to join the game that the user wishes to join
                 Server_Login_Register_Request joinGame = new Server_Login_Register_Request(gameName,gamePassword,user_id,responseListener, URL);
                 RequestQueue queue = Volley.newRequestQueue(FindAGame.this);
                 queue.add(joinGame);
             }
         });
 
+        // Displays the password field if the user chooses to create a private game i.e. presses the switch
         publicPrivate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,6 +183,7 @@ public class FindAGame extends AppCompatActivity {
         });
     }
 
+    // Method for setting the font of the text
     private void setText(Typeface font) {
         TextView findTitle = (TextView) findViewById(R.id.findHeader);
         TextView publicPrivateSwitch = (TextView) findViewById(R.id.switch1);

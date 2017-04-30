@@ -12,19 +12,17 @@ import android.widget.TextView;
 
 public class Settings extends AppCompatActivity {
     Button bt1,logOut;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
-        TextView settingTitle = (TextView) findViewById(R.id.settingHeader);
-        TextView signOut = (TextView) findViewById(R.id.logOutButton);
-        TextView backToMain = (TextView) findViewById(R.id.button);
-        settingTitle.setTypeface(font);
-        signOut.setTypeface(font);
-        backToMain.setTypeface(font);
+        setText(font);
         logOut = (Button)findViewById(R.id.logOutButton);
         bt1 = (Button) findViewById(R.id.button);
+
+        // Returns you to the main menu
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +30,8 @@ public class Settings extends AppCompatActivity {
                 startActivity(toFindAGame);
             }
         });
+
+        // Signs the current player logged in on the device out
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,5 +44,15 @@ public class Settings extends AppCompatActivity {
                 startActivity(toLogIn);
             }
         });
+    }
+
+    // Method for setting the font of the text
+    private void setText(Typeface font) {
+        TextView settingTitle = (TextView) findViewById(R.id.settingHeader);
+        TextView signOut = (TextView) findViewById(R.id.logOutButton);
+        TextView backToMain = (TextView) findViewById(R.id.button);
+        settingTitle.setTypeface(font);
+        signOut.setTypeface(font);
+        backToMain.setTypeface(font);
     }
 }
