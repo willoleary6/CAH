@@ -66,7 +66,7 @@
         android:background="@color/white"
         android:ems="10"
         android:id="@+id/gameName"
-        android:hint="@string/game_password"
+        android:hint="@string/game_name"
         android:layout_above="@+id/gamePassword"
         android:layout_marginBottom="12dp"
         android:layout_alignStart="@+id/search"

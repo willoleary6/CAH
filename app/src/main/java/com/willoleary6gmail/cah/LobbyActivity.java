@@ -3,6 +3,7 @@ package com.willoleary6gmail.cah;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Handler;
@@ -44,6 +45,8 @@ public class LobbyActivity extends AppCompatActivity {
         ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(0);
         final SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
+        Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
+        setText(font);
         String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
         String name = userInfo.getString("username", "");
         setContentView(R.layout.activity_lobby);
@@ -54,7 +57,8 @@ public class LobbyActivity extends AppCompatActivity {
         final CheckBox player2Chck = (CheckBox) findViewById(R.id.player2chck);
         final CheckBox player3Chck = (CheckBox) findViewById(R.id.player3chck);
         final CheckBox player4Chck = (CheckBox) findViewById(R.id.player4chck);
-        Button start = (Button) findViewById(R.id.start);
+        Button start = (Button) findViewById(R.id.startGame);
+        Button leave = (Button) findViewById(R.id.leaveGame);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,7 +183,12 @@ public class LobbyActivity extends AppCompatActivity {
             }
         }, 0, 1, SECONDS);
 
+        leave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
     }
     @Override
     protected void onStop() {
@@ -350,6 +359,38 @@ public class LobbyActivity extends AppCompatActivity {
         }else if(playerId.equals(gameInfo.getString("player4_id","")) && playerId.equals(my_id)){
             player4Chck.setClickable(true);
         }
+    }
+
+    // Method for setting the font of the text
+    private void setText(Typeface font){
+        TextView gameLobbyHead = (TextView) findViewById(R.id.gameLobby);
+        TextView playersHead = (TextView) findViewById(R.id.players);
+        TextView readyHead = (TextView) findViewById(R.id.playerReady);
+        TextView gameHost = (TextView) findViewById(R.id.gameHost);
+        TextView player1 = (TextView) findViewById(R.id.player1);
+        TextView player2 = (TextView) findViewById(R.id.player2);
+        TextView player3 = (TextView) findViewById(R.id.player3);
+        TextView player4 = (TextView) findViewById(R.id.player4);
+        TextView player1Check = (TextView) findViewById(R.id.player1chck);
+        TextView player2Check = (TextView) findViewById(R.id.player2chck);
+        TextView player3Check = (TextView) findViewById(R.id.player3chck);
+        TextView player4Check = (TextView) findViewById(R.id.player4chck);
+        TextView start = (TextView) findViewById(R.id.startGame);
+        TextView leave = (TextView) findViewById(R.id.leaveGame);
+        gameLobbyHead.setTypeface(font);
+        playersHead.setTypeface(font);
+        readyHead.setTypeface(font);
+        gameHost.setTypeface(font);
+        player1.setTypeface(font);
+        player2.setTypeface(font);
+        player3.setTypeface(font);
+        player4.setTypeface(font);
+        player1Check.setTypeface(font);
+        player2Check.setTypeface(font);
+        player3Check.setTypeface(font);
+        player4Check.setTypeface(font);
+        start.setTypeface(font);
+        leave.setTypeface(font);
     }
   /*  public void beep() {
         final Runnable beeper = new Runnable() {
