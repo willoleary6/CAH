@@ -104,14 +104,15 @@ public class HostAGame extends AppCompatActivity {
                                  SharedPreferences.Editor edit = gameDetails.edit();
                                  edit.putInt("game_id",GameId);
                                  edit.putInt("hand_id",handId);
-                                 edit.putInt("player1_id",playerId);
+                                 edit.putString("player1_id",String.valueOf(playerId));
                                  edit.putInt("myPlayer_id",playerId);
-                                 edit.putInt("player2_id",0);
-                                 edit.putString("player2_name","EMPTY");
-                                 edit.putInt("player3_id",0);
-                                 edit.putString("player3_name","EMPTY");
-                                 edit.putInt("player4_id",0);
-                                 edit.putString("player4_name","EMPTY");
+                                 edit.putString("player2_id","0");
+                                 edit.putString("player2Username","EMPTY");
+                                 edit.putString("player3_id","0");
+                                 edit.putString("player3Username","EMPTY");
+                                 edit.putString("player4_id","0");
+                                 edit.putString("player4Username","EMPTY");
+                                 edit.putInt("playerCount",1);
                                  edit.apply();
                                  Toast.makeText(getApplicationContext(),
                                         "Game Created.",
