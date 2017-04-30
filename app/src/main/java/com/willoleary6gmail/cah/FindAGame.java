@@ -16,7 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,7 +72,6 @@ public class FindAGame extends AppCompatActivity {
                             String timestamp;
                             String [] playerNumbers = {"player1_id","player2_id","player3_id","player4_id"};
                             String [] playerUsernames = {"player1Username","player2Username","player3Username","player4Username"};
-                            String [] [] playerDetails = new String [4][2];
                             boolean[] fromServer = new boolean[6];
                             fromServer[0] = jsonResponse.getBoolean("finalInsert");
                             fromServer[1] = jsonResponse.getBoolean("playerstatus");
@@ -82,7 +81,7 @@ public class FindAGame extends AppCompatActivity {
                             fromServer[5] = jsonResponse.getBoolean("success");
                             if(fromServer[0] && fromServer[1] && fromServer[2]
                                     && fromServer[3] && fromServer[4] && fromServer[5]){
-
+                                //if all checks are true then the game information will be set in shared preferences
                                 SharedPreferences gameDetails = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor edit = gameDetails.edit();
                                 playerCount = jsonResponse.getInt("playerCount");
@@ -94,7 +93,6 @@ public class FindAGame extends AppCompatActivity {
                                 edit.putInt("hand_id",handId);
                                 edit.putInt("myPlayer_id",myId);
 
-                                //test = jsonResponse.getString(playerTemplates[0]);
                                 for(int i = 0; i < 4; i++) {
                                     if(i > playerCount+1){
                                         edit.putString(playerNumbers[i-1],"0");
@@ -104,9 +102,6 @@ public class FindAGame extends AppCompatActivity {
                                     edit.putString(playerNumbers[i],playerId);
                                     playerUsername = jsonResponse.getString(playerUsernames[i]);
                                     edit.putString(playerUsernames[i],playerUsername);
-                                    /*Toast.makeText(getApplicationContext(),
-                                            playerNumbers[i]+" "+playerId+"    "+ playerUsernames[i]+"   "+ playerUsername,
-                                            Toast.LENGTH_LONG).show();*/
                                 }
                                 Toast.makeText(getApplicationContext(),
                                         "Working ",

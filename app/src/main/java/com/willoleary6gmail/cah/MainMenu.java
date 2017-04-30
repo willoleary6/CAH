@@ -21,16 +21,20 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main_menu);
+        //declaring buttons for each of the options
         Button FindAGame = (Button) findViewById(R.id.findGame);
         Button HostAGame = (Button) findViewById(R.id.hostGame);
         Button Settings  = (Button) findViewById(R.id.settings);
-        Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
+        //setting fonts
+        Typeface font = Typeface.createFromAsset
+                (getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
         setText(font);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
         String name = userInfo.getString("username", "");
         TextView details = (TextView) findViewById(R.id.userName);
         details.setTypeface(font);
         details.setText(name);
+        //if find a game button is clicked then this code will execute
         FindAGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +48,7 @@ public class MainMenu extends AppCompatActivity {
                 }, 500);
             }
         });
+        //if host a game is clicked then this code will execute
         HostAGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +63,7 @@ public class MainMenu extends AppCompatActivity {
                 }, 500);
             }
         });
+        //if Settings is clicked then this code will execute
         Settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

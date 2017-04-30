@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 
 public class HostAGame extends AppCompatActivity {
     boolean swtch = true;
+    MediaPlayer buttonClick;
     Button main;
     // URL for creating a new lobby in the database
     private static final String URL = "https://15155528serversite.000webhostapp.com/NewGame.php";
@@ -46,6 +48,7 @@ public class HostAGame extends AppCompatActivity {
         main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonSound();
                 Intent toFindAGame = new Intent(HostAGame.this,MainMenu.class);
                 startActivity(toFindAGame);
             }
@@ -56,6 +59,7 @@ public class HostAGame extends AppCompatActivity {
         makeLobby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonSound();
                 final String lobbyName = Name.getText().toString();
                 final String lobbyPassCode = PassCode.getText().toString();
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -90,7 +94,7 @@ public class HostAGame extends AppCompatActivity {
                                 SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = userInfo.edit();
                                 editor.clear();
-                                editor.commit();
+                                editor.apply();
                                 finish();
                                 try {
                                     wait(1000);
@@ -112,6 +116,7 @@ public class HostAGame extends AppCompatActivity {
                                  timestamp = jsonResponse.getString("createdTimeStamp");
                                  SharedPreferences gameDetails = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
                                  SharedPreferences.Editor edit = gameDetails.edit();
+                                 //setting all the lobby information in shared preferences
                                  edit.putString("timestamp",timestamp);
                                  edit.putInt("game_id",GameId);
                                  edit.putInt("hand_id",handId);
@@ -154,7 +159,7 @@ public class HostAGame extends AppCompatActivity {
                     PassCode.setVisibility(View.INVISIBLE);
                     swtch = true;
                 }
-
+                buttonSound();
             }
         });
 
@@ -174,5 +179,9 @@ public class HostAGame extends AppCompatActivity {
         lobbyPass.setTypeface(font);
         createLobby.setTypeface(font);
         backToMain.setTypeface(font);
+    }
+    private void buttonSound() {
+        buttonClick = MediaPlayer.create(HostAGame.this, R.raw.click);
+        buttonClick.start();
     }
 }

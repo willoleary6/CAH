@@ -8,11 +8,8 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -26,14 +23,17 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
+        /*declaring all the text views*/
+        Typeface font = Typeface.createFromAsset
+                (getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
         TextView gameTitle = (TextView) findViewById(R.id.cahHeader);
         TextView regHead = (TextView) findViewById(R.id.regHeader);
-        TextView user = (TextView) findViewById(R.id.Username);
-        TextView pass = (TextView) findViewById(R.id.Password);
+        final TextView user = (TextView) findViewById(R.id.Username);
+        final TextView pass = (TextView) findViewById(R.id.Password);
         TextView regButton = (TextView) findViewById(R.id.button2);
         TextView accExists = (TextView) findViewById(R.id.accountExists);
         TextView logButton = (TextView) findViewById(R.id.tvLoginHere);
+       /*setting the fonts*/
         gameTitle.setTypeface(font);
         regHead.setTypeface(font);
         user.setTypeface(font);
@@ -41,25 +41,19 @@ public class RegisterActivity extends AppCompatActivity {
         regButton.setTypeface(font);
         accExists.setTypeface(font);
         logButton.setTypeface(font);
-         final EditText etUsername = (EditText) findViewById(R.id.Username);
-         final EditText etPassword = (EditText) findViewById(R.id.Password);
 
-         Button bRegister = (Button) findViewById(R.id.button2);
-        TextView LoginLink = (TextView) findViewById(R.id.tvLoginHere);
-
-       bRegister.setOnClickListener(new View.OnClickListener() {
+        //when the register button is clicked this listener starts
+        regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String username = etUsername.getText().toString();
-                final String password = etPassword.getText().toString();
+                final String username = user.getText().toString();
+                final String password = pass.getText().toString();
                 buttonSound();
                 Response.Listener<String> responseListener = new Response.Listener<String>(){
 
                     @Override
                     public void onResponse(String response) {
                         try {
-                            String updatedName = username;
-                            String updatedPwd = password;
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean [] fromServer = new boolean[3];
                             fromServer[0] = jsonResponse.getBoolean("success");
@@ -68,12 +62,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                             if(fromServer[0] && fromServer[1] && fromServer[2])
                             {
+                                //if all booleans check out commit user details to shared preferences
                                 int idNumber = jsonResponse.getInt("user_id");
                                 Toast.makeText(getApplicationContext(),
                                         "Registration successful." ,
                                         Toast.LENGTH_LONG).show();
-                                Intent LoginIntent = new Intent(RegisterActivity.this,loginActivity.class);
-                                saveInfo(updatedName,updatedPwd,idNumber);
+                                Intent LoginIntent = new Intent
+                                        (RegisterActivity.this,loginActivity.class);
+                                saveInfo(username,password,idNumber);
                                 RegisterActivity.this.startActivity(LoginIntent);
                             }else if(!fromServer[2]){
                                 Toast.makeText(getApplicationContext(),
@@ -95,12 +91,13 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 };
                 /*Creates a hash map for volley and adds the */
-                Server_Login_Register_Request registerRequest = new Server_Login_Register_Request(username,password,responseListener,URL);
+                Server_Login_Register_Request registerRequest =
+                        new Server_Login_Register_Request(username,password,responseListener,URL);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
             }
         });
-        LoginLink.setOnClickListener(new View.OnClickListener() {
+        logButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent LoginIntent = new Intent(RegisterActivity.this,loginActivity.class);

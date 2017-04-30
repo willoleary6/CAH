@@ -8,8 +8,6 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +19,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 /*Class that logs in the user to the game*/
 public class loginActivity extends AppCompatActivity {
-    private EditText Username,password;
-    private Button bLogin;
-    private RequestQueue requestQueue;
    /*url to the php file that will handle the data and check the database if the users details are correct*/
     private static final String URL = "https://15155528serversite.000webhostapp.com/Login.php";
     @Override
@@ -35,17 +30,18 @@ public class loginActivity extends AppCompatActivity {
         String name = userInfo.getString("username", "");
         String pwd = userInfo.getString("password", "");
         /*checks if the user is already logged in*/
-        if (name != "" || pwd != "") {
+        if (!(name.equals("") || pwd .equals(""))) {
+            // if so the user is automatically logged it
             loginActivity.this.startActivity(toMainMenu);
         } else {
             setContentView(R.layout.activity_login);
             Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
             TextView gameTitle = (TextView) findViewById(R.id.cahHeader);
             TextView logHead = (TextView) findViewById(R.id.logHeader);
-            TextView user = (TextView) findViewById(R.id.Username);
-            TextView pass = (TextView) findViewById(R.id.Password);
-            TextView logButton = (TextView) findViewById(R.id.button2);
-            TextView regButton = (TextView) findViewById(R.id.tvRegisterHere);
+            final TextView user = (TextView) findViewById(R.id.Username);
+            final TextView pass = (TextView) findViewById(R.id.Password);
+            final TextView logButton = (TextView) findViewById(R.id.button2);
+            final TextView regButton = (TextView) findViewById(R.id.tvRegisterHere);
             gameTitle.setTypeface(font);
             logHead.setTypeface(font);
             user.setTypeface(font);
@@ -53,17 +49,13 @@ public class loginActivity extends AppCompatActivity {
             logButton.setTypeface(font);
             regButton.setTypeface(font);
             /*Set variables to users inputs*/
-            final EditText etUsername = (EditText) findViewById(R.id.Username);
-            final EditText etPassword = (EditText) findViewById(R.id.Password);
 
-            final Button bLogin = (Button) findViewById(R.id.button2);
-            final TextView registerLink = (TextView) findViewById(R.id.tvRegisterHere);
 
-            bLogin.setOnClickListener(new View.OnClickListener() {
+            logButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final String username = etUsername.getText().toString();
-                    final String password = etPassword.getText().toString();
+                    final String username = user.getText().toString();
+                    final String password = pass.getText().toString();
                     //added sound effect to help users
                     buttonSound();
                     //Listener to wait for php script to return answer
@@ -72,7 +64,6 @@ public class loginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             try {
-                                String updatedName = username;
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean[] fromServer = new boolean[2];
                                 /*two boolean arrays first to check if we can connect
@@ -82,17 +73,14 @@ public class loginActivity extends AppCompatActivity {
                                 fromServer[1] = jsonResponse.getBoolean("data_fields");
 
                                 if (fromServer[0] && fromServer[1]) {
+                                    //if both fields are true then the user is sent to the main menu
                                     int idNumber = jsonResponse.getInt("user_id");
                                     Intent toMainMenu = new Intent(loginActivity.this, MainMenu.class);
-                                    saveInfo(updatedName, password, idNumber);
+                                    saveInfo(username, password, idNumber);
                                     loginActivity.this.startActivity(toMainMenu);
                                 } else if (!fromServer[0]) {
                                     Toast.makeText(getApplicationContext(),
                                             "Error: You must enter a valid password and username",
-                                            Toast.LENGTH_LONG).show();
-                                } else if (!fromServer[1]) {
-                                    Toast.makeText(getApplicationContext(),
-                                            "Error: You have not entered inputs into both fields",
                                             Toast.LENGTH_LONG).show();
                                 }
 
@@ -110,7 +98,7 @@ public class loginActivity extends AppCompatActivity {
             });
 
             //link to register form
-            registerLink.setOnClickListener(new View.OnClickListener() {
+            regButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent registerIntent = new Intent(loginActivity.this, RegisterActivity.class);
