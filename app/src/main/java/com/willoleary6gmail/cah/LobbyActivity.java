@@ -196,7 +196,7 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
         /*Thread that checks the database once a second looking for inputs from users in the lobby and syncing them each other*/
-        scheduleTaskExecutor = Executors.newScheduledThreadPool(3);
+        scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -452,8 +452,7 @@ public class LobbyActivity extends AppCompatActivity {
             player4Chck.setClickable(true);
         }
     }
-
-    protected void onPause(String playerId){
+    protected void onPause(Bundle savedInstanceState){
         super.onPause();
         /*SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
         SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
