@@ -196,7 +196,7 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
         /*Thread that checks the database once a second looking for inputs from users in the lobby and syncing them each other*/
-        scheduleTaskExecutor = Executors.newScheduledThreadPool(1);
+        scheduleTaskExecutor = Executors.newScheduledThreadPool(3);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -245,17 +245,29 @@ public class LobbyActivity extends AppCompatActivity {
                                     }
                                 } else if (fromServer[2]) {
                                     //if someone clicked a checkbox in the lobby
-                                    dontFire = true;
                                     int count = jsonResponse.getInt("checkedCount");
-                                    for (int i = 0; i < count; i++) {
-                                        UpdateCheckBox(jsonResponse.getString("checker"+(i+1)));
-                                    }
+                                    Toast.makeText(getApplicationContext(),
+                                            "check: "+count,
+                                            Toast.LENGTH_LONG).show();
+                                    //dontFire = true;
+
+
+                                    UpdateCheckBox(jsonResponse.getString("checker"+(1)));
+                                    /*for (int i = 0; i < count; i++) {
+
+                                        String test = jsonResponse.getString("checker"+(i+1));
+                                        Toast.makeText(getApplicationContext(),
+                                                "playerId: " +test,
+                                                Toast.LENGTH_LONG).show();
+
+
+                                    }*/
+                                    dontFire = false;
                                 }else if (fromServer[3]){
                                     Intent StartGame = new Intent(LobbyActivity.this, inGame.class);
                                     LobbyActivity.this.startActivity(StartGame);
                                 }
                             }
-                            dontFire = false;
                             timestamp = jsonResponse.getString("timestamp");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -362,7 +374,6 @@ public class LobbyActivity extends AppCompatActivity {
         String URL = "https://15155528serversite.000webhostapp.com/checkBox.php";
         Response.Listener<String> responseListener = new Response.Listener<String>() {
 
-
             @Override
             public void onResponse(String response) {
                 try {
@@ -381,10 +392,13 @@ public class LobbyActivity extends AppCompatActivity {
 
             }
         };
-      /*creates a hash map for volley*/
+        Toast.makeText(getApplicationContext(),
+                gameId+"   "+playerId,
+                Toast.LENGTH_LONG).show();
+        /*creates a hash map for volley*/
       /*This method enters into the log that this user has pressed his check box and
       * every other lobby member will see the box become checked*/
-      Server_Login_Register_Request checked = new Server_Login_Register_Request(gameId, playerId, responseListener, URL);
+        Server_Login_Register_Request checked = new Server_Login_Register_Request(gameId, playerId, responseListener, URL);
         RequestQueue queue = Volley.newRequestQueue(LobbyActivity.this);
         //adds the login request to the que
         queue.add(checked);
