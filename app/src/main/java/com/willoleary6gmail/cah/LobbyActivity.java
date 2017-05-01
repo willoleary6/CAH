@@ -40,6 +40,9 @@ public class LobbyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
+        Toast.makeText(getApplicationContext(),
+                String.valueOf(gameInfo.getInt("game_id",0)),
+                Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_lobby);
         timestamp = gameInfo.getString("timestamp", "");
         final String gameId = String.valueOf(gameInfo.getInt("game_id", 0));
@@ -56,6 +59,7 @@ public class LobbyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean [] allReady = new boolean[4];
                 SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
+                String my_id = String.valueOf(gameInfo.getInt("myPlayer_id",0));
                 if(!(gameInfo.getString("player1_id", "").equals("0"))){
                     if(hostChck.isChecked()) {
                         allReady[0] = true;
@@ -66,6 +70,11 @@ public class LobbyActivity extends AppCompatActivity {
                     allReady[0] = true;
                 }
                 if(!(gameInfo.getString("player2_id", "").equals("0"))){
+                    if (player2Chck.isChecked()) {
+                        allReady[1] = true;
+                    }else{
+                        allReady[1] = false;
+                    }
                 }else{
                     allReady[1] = true;
                 }
@@ -90,7 +99,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if(allReady[0] && allReady[1] && allReady[2] && allReady[3]){
                     Intent StartGame = new Intent(LobbyActivity.this, inGame.class);
                     LobbyActivity.this.startActivity(StartGame);
-                    /*String URL = "https://15155528serversite.000webhostapp.com/start.php";
+                    String URL = "https://15155528serversite.000webhostapp.com/start.php";
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -115,7 +124,7 @@ public class LobbyActivity extends AppCompatActivity {
                     Server_Login_Register_Request checked = new Server_Login_Register_Request(gameId,my_id, responseListener, URL);
                     RequestQueue queue = Volley.newRequestQueue(LobbyActivity.this);
                     //adds the login request to the que
-                    queue.add(checked);*/
+                    queue.add(checked);
                 }else{
                     Toast.makeText(getApplicationContext(),
                             "All players are not ready!",
@@ -242,7 +251,6 @@ public class LobbyActivity extends AppCompatActivity {
                                         UpdateCheckBox(jsonResponse.getString("checker"+(i+1)));
                                     }
                                 }else if (fromServer[3]){
-                                    //if the host pressed start
                                     Intent StartGame = new Intent(LobbyActivity.this, inGame.class);
                                     LobbyActivity.this.startActivity(StartGame);
                                 }
