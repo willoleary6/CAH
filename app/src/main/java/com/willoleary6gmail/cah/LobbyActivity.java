@@ -196,7 +196,7 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
         /*Thread that checks the database once a second looking for inputs from users in the lobby and syncing them each other*/
-        scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+        scheduleTaskExecutor = Executors.newSingleThreadScheduledExecutor();
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -208,11 +208,12 @@ public class LobbyActivity extends AppCompatActivity {
                         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
-                            boolean[] fromServer = new boolean[4];
+                            boolean[] fromServer = new boolean[5];
                             fromServer[0] = jsonResponse.getBoolean("changes");
                             fromServer[1] = jsonResponse.getBoolean("NewUsers");
                             fromServer[2] = jsonResponse.getBoolean("checkBox");
                             fromServer[3] = jsonResponse.getBoolean("start");
+                            fromServer[4] = jsonResponse.getBoolean("left");
                             if (fromServer[0]) {
                                 //if changes are detected
                                 if (fromServer[1]) {
@@ -246,22 +247,13 @@ public class LobbyActivity extends AppCompatActivity {
                                 } else if (fromServer[2]) {
                                     //if someone clicked a checkbox in the lobby
                                     int count = jsonResponse.getInt("checkedCount");
-                                    Toast.makeText(getApplicationContext(),
-                                            "check: "+count,
-                                            Toast.LENGTH_LONG).show();
-                                    //dontFire = true;
+                                    dontFire = true;
 
 
-                                    UpdateCheckBox(jsonResponse.getString("checker"+(1)));
-                                    /*for (int i = 0; i < count; i++) {
 
-                                        String test = jsonResponse.getString("checker"+(i+1));
-                                        Toast.makeText(getApplicationContext(),
-                                                "playerId: " +test,
-                                                Toast.LENGTH_LONG).show();
-
-
-                                    }*/
+                                    for (int i = 0; i < count; i++) {
+                                        UpdateCheckBox(jsonResponse.getString("checker"+(1)));
+                                    }
                                     dontFire = false;
                                 }else if (fromServer[3]){
                                     Intent StartGame = new Intent(LobbyActivity.this, inGame.class);
@@ -368,7 +360,7 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     //when the check box is clicked it calls this method
-    public void Checked(final String playerId) {
+    public void Checked(String playerId) {
         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
         String gameId = String.valueOf(gameInfo.getInt("game_id",0));
         String URL = "https://15155528serversite.000webhostapp.com/checkBox.php";

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 
 public class FindAGame extends AppCompatActivity {
     boolean switchClick = true;
+    MediaPlayer buttonClick;
     Button main, searchLobby;
     private static final String URL = "https://15155528serversite.000webhostapp.com/findAGame.php";
 
@@ -44,6 +46,7 @@ public class FindAGame extends AppCompatActivity {
         main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonSound();
                 Intent toFindAGame = new Intent(FindAGame.this,MainMenu.class);
                 startActivity(toFindAGame);
             }
@@ -54,6 +57,7 @@ public class FindAGame extends AppCompatActivity {
         searchLobby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonSound();
                 final String gameName = gName.getText().toString();
                 final String gamePassword = gPassword.getText().toString();
                 searchLobby.setClickable(false);
@@ -62,25 +66,27 @@ public class FindAGame extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-
                             JSONObject jsonResponse = new JSONObject(response);
                             int playerCount;
                             int myId;
                             int handId;
+                            int game_id;
                             String playerId;
                             String playerUsername;
                             String timestamp;
                             String [] playerNumbers = {"player1_id","player2_id","player3_id","player4_id"};
                             String [] playerUsernames = {"player1Username","player2Username","player3Username","player4Username"};
-                            boolean[] fromServer = new boolean[6];
+                            boolean[] fromServer = new boolean[7];
                             fromServer[0] = jsonResponse.getBoolean("finalInsert");
                             fromServer[1] = jsonResponse.getBoolean("playerstatus");
                             fromServer[2] = jsonResponse.getBoolean("hand");
                             fromServer[3] = jsonResponse.getBoolean("emptySpace");
                             fromServer[4] = jsonResponse.getBoolean("find");
-                            fromServer[5] = jsonResponse.getBoolean("success");
+                            fromServer[5] = jsonResponse.getBoolean("password");
+                            fromServer[6] = jsonResponse.getBoolean("success");
                             if(fromServer[0] && fromServer[1] && fromServer[2]
-                                    && fromServer[3] && fromServer[4] && fromServer[5]){
+                                    && fromServer[3] && fromServer[4] && fromServer[5]
+                                    && fromServer[6]){
                                 //if all checks are true then the game information will be set in shared preferences
                                 SharedPreferences gameDetails = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor edit = gameDetails.edit();
@@ -88,13 +94,15 @@ public class FindAGame extends AppCompatActivity {
                                 timestamp = jsonResponse.getString("CreatedTimeStamp");
                                 myId = jsonResponse.getInt("myId");
                                 handId = jsonResponse.getInt("hand_id");
+                                game_id = jsonResponse.getInt("game_id");
+                                edit.putInt("game_id",game_id);
                                 edit.putString("timestamp",timestamp);
                                 edit.putInt("playerCount",playerCount);
                                 edit.putInt("hand_id",handId);
                                 edit.putInt("myPlayer_id",myId);
 
                                 for(int i = 0; i < 4; i++) {
-                                    if(i > playerCount+1){
+                                    if(i > playerCount){
                                         edit.putString(playerNumbers[i-1],"0");
                                         edit.putString(playerUsernames[i-1],"EMPTY");
                                     }
@@ -117,38 +125,38 @@ public class FindAGame extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Join game failed",
                                             Toast.LENGTH_LONG).show();
-                                    searchLobby.setClickable(true);
                                 }else if(!fromServer[1]){
                                     // If the player is not created within the game
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Unable to create player entity",
                                             Toast.LENGTH_LONG).show();
-                                    searchLobby.setClickable(true);
                                 }else if(!fromServer[2]){
                                     // If the player is joined but their hand of cards is not created
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Unable to generate hand",
                                             Toast.LENGTH_LONG).show();
-                                    searchLobby.setClickable(true);
                                 }else if(!fromServer[3]){
                                     // If the game is full
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Game is full",
                                             Toast.LENGTH_LONG).show();
-                                    searchLobby.setClickable(true);
-                                }else if(!fromServer[4]){
+                                }else if(!fromServer[4]) {
                                     // If the game does not exist
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Unable to find game",
                                             Toast.LENGTH_LONG).show();
-                                    searchLobby.setClickable(true);
+                                }else if(!fromServer[5]) {
+                                    // If the game does not exist
+                                    Toast.makeText(getApplicationContext(),
+                                            "Error: password invalid",
+                                            Toast.LENGTH_LONG).show();
                                 }else{
                                     // If something unexpected results in the find game being unsuccessful
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Something went wrong",
                                             Toast.LENGTH_LONG).show();
-                                    searchLobby.setClickable(true);
                                 }
+                                searchLobby.setClickable(true);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -194,5 +202,9 @@ public class FindAGame extends AppCompatActivity {
         gamePass.setTypeface(font);
         searchButton.setTypeface(font);
         mainMenuButton.setTypeface(font);
+    }
+    private void buttonSound() {
+        buttonClick = MediaPlayer.create(FindAGame.this, R.raw.click);
+        buttonClick.start();
     }
 }
