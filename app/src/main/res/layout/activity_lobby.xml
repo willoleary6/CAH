@@ -17,9 +17,9 @@
         android:text="EMPTY"
         android:textSize="20sp"
         android:textAllCaps="false"
-        android:layout_marginEnd="21dp"
-        android:layout_above="@+id/player2chck"
-        android:layout_toStartOf="@+id/gameLobby" />
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/player2"
+        android:layout_alignStart="@+id/player2" />
 
     <TextView
         android:id="@+id/player2"
@@ -28,9 +28,9 @@
         android:text="EMPTY"
         android:textSize="20sp"
         android:textAllCaps="false"
-        android:layout_above="@+id/player3chck"
-        android:layout_toEndOf="@+id/gameHost"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/player3"
+        android:layout_alignStart="@+id/player3" />
 
     <TextView
         android:id="@+id/player3"
@@ -39,9 +39,9 @@
         android:text="EMPTY"
         android:textSize="20sp"
         android:textAllCaps="false"
-        android:layout_above="@+id/player4chck"
-        android:layout_alignStart="@+id/player2"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/player4"
+        android:layout_alignStart="@+id/player4" />
 
     <TextView
         android:id="@+id/player4"
@@ -51,7 +51,7 @@
         android:textSize="20sp"
         android:textAllCaps="false"
         android:layout_alignBottom="@+id/player4chck"
-        android:layout_alignStart="@+id/player3" />
+        android:layout_alignEnd="@+id/startGame" />
 
     <CheckBox
         android:id="@+id/player1chck"
@@ -59,9 +59,8 @@
         android:layout_height="wrap_content"
         android:text="@string/player_ready"
         android:textSize="20sp"
-        android:layout_alignBaseline="@+id/player1"
-        android:layout_alignBottom="@+id/player1"
-        android:layout_alignEnd="@+id/playerReady" />
+        android:layout_above="@+id/player2chck"
+        android:layout_toEndOf="@+id/gameLobby" />
 
     <CheckBox
         android:id="@+id/player2chck"
@@ -89,7 +88,7 @@
         android:textSize="20sp"
         android:layout_above="@+id/leaveGame"
         android:layout_alignStart="@+id/player3chck"
-        android:layout_marginBottom="28dp" />
+        android:layout_marginBottom="35dp" />
 
     <Button
         android:id="@+id/startGame"
@@ -132,8 +131,10 @@
         android:gravity="center"
         android:textSize="20sp"
         android:textColor="@color/white"
-        android:layout_below="@+id/gameLobby"
-        android:layout_alignStart="@+id/gameHost" />
+        android:layout_marginBottom="12dp"
+        android:layout_above="@+id/player1chck"
+        android:layout_toStartOf="@+id/player1chck"
+        android:layout_marginEnd="17dp" />
 
     <TextView
         android:id="@+id/playerReady"
@@ -142,9 +143,10 @@
         android:text="@string/player_ready"
         android:textSize="20sp"
         android:textColor="@color/white"
-        android:layout_marginEnd="53dp"
-        android:layout_below="@+id/gameLobby"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginStart="15dp"
+        android:layout_alignBaseline="@+id/players"
+        android:layout_alignBottom="@+id/players"
+        android:layout_alignStart="@+id/player1chck" />
 
     <TextView
         android:id="@+id/gameHost"
@@ -153,9 +155,9 @@
         android:textSize="20sp"
         android:textColor="@color/white"
         android:text="@string/host"
+        android:layout_marginEnd="26dp"
         android:layout_alignBaseline="@+id/player1"
         android:layout_alignBottom="@+id/player1"
-        android:layout_toStartOf="@+id/player1"
-        android:layout_marginEnd="44dp" />
+        android:layout_toStartOf="@+id/player1" />
 
 </RelativeLayout>
