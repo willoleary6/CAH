@@ -3,6 +3,7 @@ package com.willoleary6gmail.cah;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -30,9 +31,11 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class LobbyActivity extends AppCompatActivity {
     boolean dontFire = false;
+    MediaPlayer buttonClick;
     private String timestamp;
     ScheduledExecutorService scheduleTaskExecutor;
     @RequiresApi(api = Build.VERSION_CODES.N)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +49,8 @@ public class LobbyActivity extends AppCompatActivity {
         final CheckBox player3Chck = (CheckBox) findViewById(R.id.player3chck);
         final CheckBox player4Chck = (CheckBox) findViewById(R.id.player4chck);
         Button start = (Button) findViewById(R.id.startGame);
+        Button leave = (Button) findViewById(R.id.leaveGame);
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +123,7 @@ public class LobbyActivity extends AppCompatActivity {
                 }
             }
         });
+
         // if the user is the host this listener will fire
         hostChck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                                 @Override
@@ -168,6 +174,18 @@ public class LobbyActivity extends AppCompatActivity {
                                                    }
                                                }
         );
+
+        leave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
+                //onPause(my_id);
+                buttonSound();
+                Intent toFindAGame = new Intent(LobbyActivity.this,MainMenu.class);
+                startActivity(toFindAGame);
+            }
+        });
+
         /*Thread that checks the database once a second looking for inputs from users in the lobby and syncing them each other*/
         scheduleTaskExecutor = Executors.newScheduledThreadPool(1);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
@@ -236,16 +254,17 @@ public class LobbyActivity extends AppCompatActivity {
                         }
                     }
                 };
-                    /*creates a hash map for volley*/
+                /*creates a hash map for volley*/
                 Server_Login_Register_Request updateRequest = new Server_Login_Register_Request(gameId, timestamp, responseListener, URL);
                 RequestQueue queue = Volley.newRequestQueue(LobbyActivity.this);
                 //adds the login request to the que
                 queue.add(updateRequest);
             }
         }, 0, 1, SECONDS);
-
-
     }
+
+
+
     public void updateUi() {
         //display Users details in the lobby
         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
@@ -327,6 +346,7 @@ public class LobbyActivity extends AppCompatActivity {
             }
         }
     }
+
     //when the check box is clicked it calls this method
     public void Checked(final String playerId) {
         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
@@ -361,6 +381,7 @@ public class LobbyActivity extends AppCompatActivity {
         //adds the login request to the que
         queue.add(checked);
     }
+
     public void UpdateCheckBox(String playerId){
         /*If statements dealing with what check box was ticked and what value it is*/
         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
@@ -409,11 +430,37 @@ public class LobbyActivity extends AppCompatActivity {
             player4Chck.setClickable(true);
         }
     }
-    protected void onPause(){
+
+    protected void onPause(String playerId){
         super.onPause();
+        /*SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
+        SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
+        String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
+        String player1Id = gameInfo.getString("player1_id", "");
+        String player1Username = gameInfo.getString("player1Username", "");
+        String name = userInfo.getString("username", "");
+        if(playerId.equals(gameInfo.getString("player1_id","")) && playerId.equals(my_id)) {
+
+        }
+        else if (playerId.equals(gameInfo.getString("player2_id","")) && playerId.equals(my_id)) {
+
+        }
+        else if (playerId.equals(gameInfo.getString("player3_id","")) && playerId.equals(my_id)) {
+
+        }
+        else if (playerId.equals(gameInfo.getString("player4_id","")) && playerId.equals(my_id)) {
+
+        }
+        else {
+
+        }*/
         scheduleTaskExecutor.shutdown();
     }
 
+    private void buttonSound() {
+        buttonClick = MediaPlayer.create(LobbyActivity.this, R.raw.click);
+        buttonClick.start();
+    }
 }
 
 
