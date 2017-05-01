@@ -185,14 +185,38 @@ public class LobbyActivity extends AppCompatActivity {
         );
 
         leave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
-                //onPause(my_id);
-                buttonSound();
-                Intent toFindAGame = new Intent(LobbyActivity.this,MainMenu.class);
-                startActivity(toFindAGame);
-            }
+                                     @Override
+                                     public void onClick(View v) {
+                                         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
+                                         String gameId = String.valueOf(gameInfo.getInt("game_id", 0));
+                                         String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
+                                         String URL = "https://15155528serversite.000webhostapp.com/leaveLobby.php";
+                                         Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+                                             @Override
+                                             public void onResponse(String response) {
+                                                 try {
+                                                     JSONObject jsonResponse = new JSONObject(response);
+                                                     boolean fromServer;
+                                                     fromServer = jsonResponse.getBoolean("success");
+                                                     if (!fromServer) {
+                                                         Toast.makeText(getApplicationContext(),
+                                                                 "Left lobby",
+                                                                 Toast.LENGTH_LONG).show();
+                                                     }
+                                                 } catch (JSONException e) {
+                                                     e.printStackTrace();
+                                                 }
+                                             }
+                                         };
+                                         /*creates a hash map for volley*/
+                                         /*This method enters into the log that this user has pressed his check box and
+                                         * every other lobby member will see the box become checked*/
+                                         Server_Login_Register_Request leaveGame = new Server_Login_Register_Request(my_id, gameId, responseListener, URL);
+                                         RequestQueue queue = Volley.newRequestQueue(LobbyActivity.this);
+                                         //adds the login request to the queue
+                                         queue.add(leaveGame);
+                                     }
         });
 
         /*Thread that checks the database once a second looking for inputs from users in the lobby and syncing them each other*/
