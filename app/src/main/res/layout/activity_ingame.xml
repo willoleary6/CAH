@@ -13,19 +13,17 @@
 
     <TextView
         android:id="@+id/black_card"
-        android:layout_width="175dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="175dp"
         android:text="black card"
         android:padding="10dp"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:background="@drawable/button_border"
         android:textColor="#ffffff"
-        android:layout_alignBottom="@+id/linearLayout"
-        android:layout_alignParentStart="true" />
-
-
-
-
+        android:layout_marginStart="31dp"
+        android:layout_alignTop="@+id/white_card1"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp" />
 
     <Button
         android:id="@+id/leaveGame"
@@ -50,92 +48,86 @@
         android:text="Button" />
 
     <TextView
-        android:id="@+id/textView"
-        android:textColor="@color/white"
-        android:textSize="30sp"
+        android:id="@+id/cahHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/cards_against_humanity_header" />
+        android:text="@string/cards_against_humanity_header"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView2"
-        android:layout_toLeftOf="@id/black_card"
-        android:layout_marginStart="8dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true">
-
-    </HorizontalScrollView>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="475dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/textView">
 
         <Button
             android:id="@+id/white_card1"
-            android:layout_width="175dp"
-            android:layout_height="200dp"
+            android:layout_width="284dp"
+            android:layout_height="40dp"
             android:background="@drawable/button_border_white"
             android:gravity="start"
-            android:padding="10dp"
+            android:padding="6dp"
             android:text="white card"
             android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:layout_marginEnd="46dp"
+            android:layout_marginTop="41dp"
+            android:layout_below="@+id/leaveGame"
+            android:layout_alignParentEnd="true" />
 
         <Button
             android:id="@+id/white_card3"
-            android:layout_width="175dp"
-            android:layout_height="200dp"
+            android:layout_width="284dp"
+            android:layout_height="40dp"
             android:background="@drawable/button_border_white"
             android:gravity="start"
-            android:padding="10dp"
-            android:text="white card"
+            android:padding="6dp"
+            android:text="white card2"
             android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:layout_below="@+id/white_card1"
+            android:layout_alignStart="@+id/white_card1" />
 
         <Button
             android:id="@+id/white_card2"
-            android:layout_width="175dp"
-            android:layout_height="200dp"
+            android:layout_width="284dp"
+            android:layout_height="40dp"
             android:background="@drawable/button_border_white"
             android:gravity="start"
-            android:padding="10dp"
-            android:text="white card"
+            android:padding="6dp"
+            android:text="white card3"
             android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:layout_below="@+id/white_card3"
+            android:layout_alignStart="@+id/white_card3" />
 
         <Button
             android:id="@+id/white_card4"
-            android:layout_width="175dp"
-            android:layout_height="200dp"
+            android:layout_width="284dp"
+            android:layout_height="40dp"
             android:background="@drawable/button_border_white"
             android:gravity="start"
-            android:padding="10dp"
-            android:text="white card"
+            android:padding="6dp"
+            android:text="white card4"
             android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:layout_below="@+id/white_card2"
+            android:layout_alignStart="@+id/white_card2" />
 
         <Button
             android:id="@+id/white_card5"
-            android:layout_width="175dp"
-            android:layout_height="200dp"
+            android:layout_width="284dp"
+            android:layout_height="40dp"
             android:background="@drawable/button_border_white"
             android:gravity="start"
-            android:padding="10dp"
-            android:text="white card"
+            android:padding="6dp"
+            android:text="white card5"
             android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="18sp" />
-    </LinearLayout>
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:layout_below="@+id/white_card4"
+            android:layout_alignStart="@+id/white_card4" />
+
 </RelativeLayout>

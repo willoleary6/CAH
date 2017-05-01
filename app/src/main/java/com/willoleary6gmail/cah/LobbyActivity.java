@@ -3,6 +3,7 @@ package com.willoleary6gmail.cah;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -34,6 +35,7 @@ public class LobbyActivity extends AppCompatActivity {
     MediaPlayer buttonClick;
     private String timestamp;
     ScheduledExecutorService scheduleTaskExecutor;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
 
     @Override
@@ -41,9 +43,11 @@ public class LobbyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         final SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
         Toast.makeText(getApplicationContext(),
-                String.valueOf(gameInfo.getInt("game_id",0)),
+                String.valueOf(gameInfo.getInt("game_id", 0)),
                 Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_lobby);
+        Typeface font = Typeface.createFromAsset(getAssets(), "helvetica-neue-lt-std-75-bold-5900e95806952.otf");
+        setText(font);
         timestamp = gameInfo.getString("timestamp", "");
         final String gameId = String.valueOf(gameInfo.getInt("game_id", 0));
         updateUi();
@@ -57,46 +61,46 @@ public class LobbyActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean [] allReady = new boolean[4];
+                boolean[] allReady = new boolean[4];
                 SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
-                String my_id = String.valueOf(gameInfo.getInt("myPlayer_id",0));
-                if(!(gameInfo.getString("player1_id", "").equals("0"))){
-                    if(hostChck.isChecked()) {
+                String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
+                if (!(gameInfo.getString("player1_id", "").equals("0"))) {
+                    if (hostChck.isChecked()) {
                         allReady[0] = true;
-                    }else{
+                    } else {
                         allReady[0] = false;
                     }
-                }else{
+                } else {
                     allReady[0] = true;
                 }
-                if(!(gameInfo.getString("player2_id", "").equals("0"))){
+                if (!(gameInfo.getString("player2_id", "").equals("0"))) {
                     if (player2Chck.isChecked()) {
                         allReady[1] = true;
-                    }else{
+                    } else {
                         allReady[1] = false;
                     }
-                }else{
+                } else {
                     allReady[1] = true;
                 }
-                if(!(gameInfo.getString("player3_id", "").equals("0"))){
+                if (!(gameInfo.getString("player3_id", "").equals("0"))) {
                     if (player3Chck.isChecked()) {
                         allReady[2] = true;
-                    }else{
+                    } else {
                         allReady[2] = false;
                     }
-                }else{
+                } else {
                     allReady[2] = true;
                 }
-                if(!(gameInfo.getString("player4_id", "").equals("0"))){
-                    if(player4Chck.isChecked()) {
+                if (!(gameInfo.getString("player4_id", "").equals("0"))) {
+                    if (player4Chck.isChecked()) {
                         allReady[3] = true;
-                    }else{
+                    } else {
                         allReady[3] = false;
                     }
-                }else{
+                } else {
                     allReady[3] = true;
                 }
-                if(allReady[0] && allReady[1] && allReady[2] && allReady[3]){
+                if (allReady[0] && allReady[1] && allReady[2] && allReady[3]) {
                     Intent StartGame = new Intent(LobbyActivity.this, inGame.class);
                     LobbyActivity.this.startActivity(StartGame);
                     String URL = "https://15155528serversite.000webhostapp.com/start.php";
@@ -108,7 +112,7 @@ public class LobbyActivity extends AppCompatActivity {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean fromServer;
                                 fromServer = jsonResponse.getBoolean("success");
-                                if(!fromServer) {
+                                if (!fromServer) {
                                     Toast.makeText(getApplicationContext(),
                                             "Error: Unable to start game.",
                                             Toast.LENGTH_LONG).show();
@@ -120,12 +124,12 @@ public class LobbyActivity extends AppCompatActivity {
 
                         }
                     };
-                     //creates a hash map for volley
-                    Server_Login_Register_Request checked = new Server_Login_Register_Request(gameId,my_id, responseListener, URL);
+                    //creates a hash map for volley
+                    Server_Login_Register_Request checked = new Server_Login_Register_Request(gameId, my_id, responseListener, URL);
                     RequestQueue queue = Volley.newRequestQueue(LobbyActivity.this);
                     //adds the login request to the que
                     queue.add(checked);
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(),
                             "All players are not ready!",
                             Toast.LENGTH_LONG).show();
@@ -140,7 +144,7 @@ public class LobbyActivity extends AppCompatActivity {
                                                     //stopping user from clicking multiple times
                                                     hostChck.setClickable(false);
                                                     String playerId = gameInfo.getString("player1_id", "");
-                                                    if(!dontFire) {
+                                                    if (!dontFire) {
                                                         /*only execute if the user clicks the
                                                         checkbox and not the thread updating
                                                         other users inputs*/
@@ -155,7 +159,7 @@ public class LobbyActivity extends AppCompatActivity {
                                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                                        player2Chck.setClickable(false);
                                                        String playerId = gameInfo.getString("player2_id", "");
-                                                       if(!dontFire) {
+                                                       if (!dontFire) {
                                                            Checked(playerId);
                                                        }
                                                    }
@@ -166,7 +170,7 @@ public class LobbyActivity extends AppCompatActivity {
                                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                                        player3Chck.setClickable(false);
                                                        String playerId = gameInfo.getString("player3_id", "");
-                                                       if(!dontFire) {
+                                                       if (!dontFire) {
                                                            Checked(playerId);
                                                        }
                                                    }
@@ -177,7 +181,7 @@ public class LobbyActivity extends AppCompatActivity {
                                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                                        player4Chck.setClickable(false);
                                                        String playerId = gameInfo.getString("player4_id", "");
-                                                       if(!dontFire) {
+                                                       if (!dontFire) {
                                                            Checked(playerId);
                                                        }
                                                    }
@@ -185,38 +189,38 @@ public class LobbyActivity extends AppCompatActivity {
         );
 
         leave.setOnClickListener(new View.OnClickListener() {
-                                     @Override
-                                     public void onClick(View v) {
-                                         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
-                                         String gameId = String.valueOf(gameInfo.getInt("game_id", 0));
-                                         String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
-                                         String URL = "https://15155528serversite.000webhostapp.com/leaveLobby.php";
-                                         Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
+                String gameId = String.valueOf(gameInfo.getInt("game_id", 0));
+                String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
+                String URL = "https://15155528serversite.000webhostapp.com/leaveLobby.php";
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
 
-                                             @Override
-                                             public void onResponse(String response) {
-                                                 try {
-                                                     JSONObject jsonResponse = new JSONObject(response);
-                                                     boolean fromServer;
-                                                     fromServer = jsonResponse.getBoolean("success");
-                                                     if (!fromServer) {
-                                                         Toast.makeText(getApplicationContext(),
-                                                                 "Left lobby",
-                                                                 Toast.LENGTH_LONG).show();
-                                                     }
-                                                 } catch (JSONException e) {
-                                                     e.printStackTrace();
-                                                 }
-                                             }
-                                         };
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean fromServer;
+                            fromServer = jsonResponse.getBoolean("success");
+                            if (!fromServer) {
+                                Toast.makeText(getApplicationContext(),
+                                        "Left lobby",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
                                          /*creates a hash map for volley*/
                                          /*This method enters into the log that this user has pressed his check box and
                                          * every other lobby member will see the box become checked*/
-                                         Server_Login_Register_Request leaveGame = new Server_Login_Register_Request(my_id, gameId, responseListener, URL);
-                                         RequestQueue queue = Volley.newRequestQueue(LobbyActivity.this);
-                                         //adds the login request to the queue
-                                         queue.add(leaveGame);
-                                     }
+                Server_Login_Register_Request leaveGame = new Server_Login_Register_Request(my_id, gameId, responseListener, URL);
+                RequestQueue queue = Volley.newRequestQueue(LobbyActivity.this);
+                //adds the login request to the queue
+                queue.add(leaveGame);
+            }
         });
 
         /*Thread that checks the database once a second looking for inputs from users in the lobby and syncing them each other*/
@@ -274,12 +278,11 @@ public class LobbyActivity extends AppCompatActivity {
                                     dontFire = true;
 
 
-
                                     for (int i = 0; i < count; i++) {
-                                        UpdateCheckBox(jsonResponse.getString("checker"+(1)));
+                                        UpdateCheckBox(jsonResponse.getString("checker" + (1)));
                                     }
                                     dontFire = false;
-                                }else if (fromServer[3]){
+                                } else if (fromServer[3]) {
                                     Intent StartGame = new Intent(LobbyActivity.this, inGame.class);
                                     LobbyActivity.this.startActivity(StartGame);
                                 }
@@ -298,7 +301,6 @@ public class LobbyActivity extends AppCompatActivity {
             }
         }, 0, 1, SECONDS);
     }
-
 
 
     public void updateUi() {
@@ -323,7 +325,7 @@ public class LobbyActivity extends AppCompatActivity {
             host.setVisibility(View.VISIBLE);
             hostChck.setVisibility(View.VISIBLE);
             if (player1Id.equals(my_id)) {
-               //if you are the host then it will give you access to click his buttons.
+                //if you are the host then it will give you access to click his buttons.
                 host.setText(name);
                 start.setClickable(true);
                 hostChck.setClickable(true);
@@ -386,7 +388,7 @@ public class LobbyActivity extends AppCompatActivity {
     //when the check box is clicked it calls this method
     public void Checked(String playerId) {
         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
-        String gameId = String.valueOf(gameInfo.getInt("game_id",0));
+        String gameId = String.valueOf(gameInfo.getInt("game_id", 0));
         String URL = "https://15155528serversite.000webhostapp.com/checkBox.php";
         Response.Listener<String> responseListener = new Response.Listener<String>() {
 
@@ -396,7 +398,7 @@ public class LobbyActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean fromServer;
                     fromServer = jsonResponse.getBoolean("success");
-                    if(!fromServer) {
+                    if (!fromServer) {
                         Toast.makeText(getApplicationContext(),
                                 "Error: Check box Sync failed.",
                                 Toast.LENGTH_LONG).show();
@@ -409,7 +411,7 @@ public class LobbyActivity extends AppCompatActivity {
             }
         };
         Toast.makeText(getApplicationContext(),
-                gameId+"   "+playerId,
+                gameId + "   " + playerId,
                 Toast.LENGTH_LONG).show();
         /*creates a hash map for volley*/
       /*This method enters into the log that this user has pressed his check box and
@@ -420,7 +422,7 @@ public class LobbyActivity extends AppCompatActivity {
         queue.add(checked);
     }
 
-    public void UpdateCheckBox(String playerId){
+    public void UpdateCheckBox(String playerId) {
         /*If statements dealing with what check box was ticked and what value it is*/
         SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
         String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
@@ -428,7 +430,7 @@ public class LobbyActivity extends AppCompatActivity {
         final CheckBox player2Chck = (CheckBox) findViewById(R.id.player2chck);
         final CheckBox player3Chck = (CheckBox) findViewById(R.id.player3chck);
         final CheckBox player4Chck = (CheckBox) findViewById(R.id.player4chck);
-        if(!(playerId.equals(my_id))) {
+        if (!(playerId.equals(my_id))) {
             if (playerId.equals(gameInfo.getString("player1_id", ""))) {
                 //if player 1 checked the box then this tree will execute
                 if (hostChck.isChecked()) {
@@ -458,39 +460,19 @@ public class LobbyActivity extends AppCompatActivity {
             }
         }
         // check to make sure only the user on his/her handset can tick their corresponding box
-        if(playerId.equals(gameInfo.getString("player1_id","")) && playerId.equals(my_id)){
+        if (playerId.equals(gameInfo.getString("player1_id", "")) && playerId.equals(my_id)) {
             hostChck.setClickable(true);
-        }else if(playerId.equals(gameInfo.getString("player2_id","")) && playerId.equals(my_id)){
+        } else if (playerId.equals(gameInfo.getString("player2_id", "")) && playerId.equals(my_id)) {
             player2Chck.setClickable(true);
-        }else if(playerId.equals(gameInfo.getString("player3_id","")) && playerId.equals(my_id)){
+        } else if (playerId.equals(gameInfo.getString("player3_id", "")) && playerId.equals(my_id)) {
             player3Chck.setClickable(true);
-        }else if(playerId.equals(gameInfo.getString("player4_id","")) && playerId.equals(my_id)){
+        } else if (playerId.equals(gameInfo.getString("player4_id", "")) && playerId.equals(my_id)) {
             player4Chck.setClickable(true);
         }
     }
-    protected void onPause(Bundle savedInstanceState){
+
+    protected void onPause(Bundle savedInstanceState) {
         super.onPause();
-        /*SharedPreferences gameInfo = getSharedPreferences("gameDetails", Context.MODE_PRIVATE);
-        SharedPreferences userInfo = getSharedPreferences("userInformation", Context.MODE_PRIVATE);
-        String my_id = String.valueOf(gameInfo.getInt("myPlayer_id", 0));
-        String player1Id = gameInfo.getString("player1_id", "");
-        String player1Username = gameInfo.getString("player1Username", "");
-        String name = userInfo.getString("username", "");
-        if(playerId.equals(gameInfo.getString("player1_id","")) && playerId.equals(my_id)) {
-
-        }
-        else if (playerId.equals(gameInfo.getString("player2_id","")) && playerId.equals(my_id)) {
-
-        }
-        else if (playerId.equals(gameInfo.getString("player3_id","")) && playerId.equals(my_id)) {
-
-        }
-        else if (playerId.equals(gameInfo.getString("player4_id","")) && playerId.equals(my_id)) {
-
-        }
-        else {
-
-        }*/
         scheduleTaskExecutor.shutdown();
     }
 
@@ -498,7 +480,37 @@ public class LobbyActivity extends AppCompatActivity {
         buttonClick = MediaPlayer.create(LobbyActivity.this, R.raw.click);
         buttonClick.start();
     }
+
+    // Method for setting the font of the text
+    private void setText(Typeface font) {
+        TextView gameLobby = (TextView) findViewById(R.id.gameLobby);
+        TextView players = (TextView) findViewById(R.id.players);
+        TextView ready = (TextView) findViewById(R.id.playerReady);
+        TextView host = (TextView) findViewById(R.id.gameHost);
+        TextView player1 = (TextView) findViewById(R.id.player1);
+        TextView player1Ready = (TextView) findViewById(R.id.player1chck);
+        TextView player2 = (TextView) findViewById(R.id.player2);
+        TextView player2Ready = (TextView) findViewById(R.id.player2chck);
+        TextView player3 = (TextView) findViewById(R.id.player3);
+        TextView player3Ready = (TextView) findViewById(R.id.player3chck);
+        TextView player4 = (TextView) findViewById(R.id.player4);
+        TextView player4Ready = (TextView) findViewById(R.id.player4chck);
+        TextView start = (TextView) findViewById(R.id.startGame);
+        TextView leave = (TextView) findViewById(R.id.leaveGame);
+        gameLobby.setTypeface(font);
+        players.setTypeface(font);
+        ready.setTypeface(font);
+        host.setTypeface(font);
+        player1.setTypeface(font);
+        player1Ready.setTypeface(font);
+        player2.setTypeface(font);
+        player2Ready.setTypeface(font);
+        player3.setTypeface(font);
+        player3Ready.setTypeface(font);
+        player4.setTypeface(font);
+        player4Ready.setTypeface(font);
+        start.setTypeface(font);
+        leave.setTypeface(font);
+    }
 }
-
-
 
